@@ -1,0 +1,107 @@
+<!-- 🎵 Lofi Music Player -->
+<div class="player">
+    <!-- 🎿 Spinning Record -->
+    <div class="vinyl"></div>
+
+    <h2>Lofi Chill Beats</h2>
+    <p style="opacity:0.7">CSS Magic Series</p>
+
+    <!-- 🎮 Controls -->
+    <div class="controls">
+        <button>⏮️</button>
+        <button class="play">▶️</button>
+        <button>⏭️</button>
+    </div>
+</div>
+
+<style>
+    /* 🌌 1. Page Setup */
+    body {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: system-ui;
+        background: url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=1920&q=80') center/cover;
+    }
+
+    /* 🪄 2. The Glassmorphism Card */
+    .player {
+        width: 320px;
+        padding: 30px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        color: white;
+        text-align: center;
+    }
+
+    /* 🎿 3. The Vinyl Record */
+    .vinyl {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: conic-gradient(#333, #111, #333, #222, #111);
+        margin: 0 auto 20px;
+        border: 4px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        transition: 0.6s ease;
+        position: relative;
+    }
+
+    /* Center hole of the vinyl */
+    .vinyl::after {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 50px;
+        background: #ff79c6;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 12px solid #111;
+        box-shadow: 0 0 20px rgba(255, 121, 198, 0.3);
+    }
+
+    /* 🎮 4. Control Buttons */
+    .controls {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 24px;
+    }
+
+    button {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    button:hover {
+        background: #ff79c6;
+        transform: scale(1.15);
+        border-color: #ff79c6;
+    }
+
+    /* 🔮 5. The CSS :has() Magic!
+   Spin & Glow the Vinyl
+   when Play button is hovered! */
+    .player:has(.play:hover) .vinyl {
+        transform: rotate(360deg) scale(1.08);
+        box-shadow:
+            0 0 40px rgba(255, 121, 198, 0.5),
+            0 0 80px rgba(255, 121, 198, 0.2);
+        border-color: #ff79c6;
+    }
+</style>
