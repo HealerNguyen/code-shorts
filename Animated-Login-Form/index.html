@@ -1,0 +1,179 @@
+<!-- 🔐 Animated Login Form -->
+<div class="login-card">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Sign in to continue</p>
+
+    <div class="input-group">
+        <input type="email" id="email" placeholder=" " required>
+        <label for="email">Email</label>
+    </div>
+
+    <div class="input-group">
+        <input type="password" id="pass" placeholder=" " required>
+        <label for="pass">Password</label>
+    </div>
+
+    <button class="submit-btn">Sign In →</button>
+
+    <div class="divider"><span>or</span></div>
+
+    <div class="social">
+        <button class="social-btn">🔷 Google</button>
+        <button class="social-btn">⬛ GitHub</button>
+    </div>
+</div>
+
+<style>
+    /* 🌌 1. Page Setup */
+    @property --angle {
+        syntax: '<angle>';
+        initial-value: 0deg;
+        inherits: false;
+    }
+
+    body {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: system-ui;
+        background: #0f0f1a;
+    }
+
+    /* 🪄 2. The Login Card */
+    .login-card {
+        width: 360px;
+        padding: 40px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+        color: white;
+        position: relative;
+    }
+
+    /* 🌈 3. Rainbow Border Glow */
+    .login-card::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        border-radius: 26px;
+        background: conic-gradient(from var(--angle),
+                #ff79c6, #89b4fa, #a6e3a1, #ff79c6);
+        z-index: -1;
+        animation: spin 4s linear infinite;
+        opacity: 0.6;
+    }
+
+    @keyframes spin {
+        to {
+            --angle: 360deg;
+        }
+    }
+
+    h2 {
+        font-size: 24px;
+        margin: 0 0 4px;
+    }
+
+    .subtitle {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 14px;
+        margin: 0 0 28px;
+    }
+
+    /* ✨ 4. Floating Label Inputs */
+    .input-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: white;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.3s;
+    }
+
+    .input-group label {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 15px;
+        pointer-events: none;
+        transition: all 0.3s;
+    }
+
+    /* 🔥 Floating effect with :placeholder-shown */
+    .input-group input:focus,
+    .input-group input:not(:placeholder-shown) {
+        border-color: #89b4fa;
+        background: rgba(137, 180, 250, 0.08);
+    }
+
+    .input-group input:focus+label,
+    .input-group input:not(:placeholder-shown)+label {
+        top: -8px;
+        font-size: 11px;
+        color: #89b4fa;
+        background: #0f0f1a;
+        padding: 0 6px;
+    }
+
+    /* 🚀 5. Submit Button */
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #89b4fa, #cba6f7);
+        color: #0f0f1a;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(137, 180, 250, 0.4);
+    }
+
+    /* 6. Divider & Social Buttons */
+    .divider {
+        text-align: center;
+        margin: 20px 0;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 13px;
+    }
+
+    .social {
+        display: flex;
+        gap: 12px;
+    }
+
+    .social-btn {
+        flex: 1;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .social-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+    }
+</style>
