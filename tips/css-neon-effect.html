@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #090a0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Orbitron', sans-serif;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .neon-text {
+            font-size: 6rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            text-align: center;
+
+            /* The initial state is blank, it animates in */
+            opacity: 0;
+            animation: turnOn 0.5s forwards 1.5s, flicker 3s infinite 3s;
+        }
+
+        @keyframes turnOn {
+            0% {
+                opacity: 0;
+                text-shadow: none;
+            }
+
+            100% {
+                opacity: 1;
+                text-shadow:
+                    0 0 5px #fff,
+                    0 0 10px #fff,
+                    0 0 20px #0ff,
+                    0 0 40px #0ff,
+                    0 0 80px #f0f,
+                    0 0 90px #0ff,
+                    0 0 100px #f0f,
+                    0 0 150px #0ff;
+            }
+        }
+
+        @keyframes flicker {
+
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% {
+                text-shadow:
+                    0 0 5px #fff,
+                    0 0 10px #fff,
+                    0 0 20px #0ff,
+                    0 0 40px #0ff,
+                    0 0 80px #f0f,
+                    0 0 90px #0ff,
+                    0 0 100px #f0f,
+                    0 0 150px #0ff;
+                opacity: 1;
+            }
+
+            20%,
+            24%,
+            55% {
+                text-shadow: none;
+                opacity: 0.3;
+            }
+        }
+
+        /* Ambient glow for the room */
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 255, 0.05) 30%, transparent 70%);
+            z-index: -1;
+            opacity: 0;
+            animation: roomGlow 0.5s forwards 1.5s;
+        }
+
+        @keyframes roomGlow {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient-glow"></div>
+    <h1 class="neon-text">CYBERPUNK</h1>
+
+</body>
+
+</html>
