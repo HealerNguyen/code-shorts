@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+            padding: 16px 24px;
+            background: rgba(49, 50, 68, 0.5);
+            border: 1px solid #45475a;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox:hover {
+            background: rgba(49, 50, 68, 0.8);
+            border-color: #585b70;
+        }
+
+        .checkmark {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #6c7086;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        @keyframes autoCheck {
+
+            0%,
+            40% {
+                background: transparent;
+                border-color: #6c7086;
+                transform: scale(1) rotate(0deg);
+            }
+
+            50%,
+            90% {
+                background: #a6e3a1;
+                border-color: #a6e3a1;
+                transform: scale(1.1) rotate(10deg);
+            }
+
+            100% {
+                background: transparent;
+                border-color: #6c7086;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes checkPop {
+
+            0%,
+            45% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50%,
+            90% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        .demo-mode .checkmark {
+            animation: autoCheck 4s infinite 1.5s;
+        }
+
+        .demo-mode .checkmark::after {
+            content: '✔';
+            color: #1e1e2e;
+            font-weight: bold;
+            font-size: 16px;
+            opacity: 0;
+            transform: scale(0);
+            animation: checkPop 4s infinite 1.5s;
+        }
+
+        @keyframes glowPop {
+
+            0%,
+            45% {
+                box-shadow: none;
+            }
+
+            50%,
+            90% {
+                box-shadow: 0 0 15px rgba(166, 227, 161, 0.5);
+            }
+
+            100% {
+                box-shadow: none;
+            }
+        }
+
+        .demo-mode {
+            animation: glowPop 4s infinite 1.5s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <label class="custom-checkbox demo-mode">
+        <input type="checkbox" hidden>
+        <span class="checkmark"></span>
+        Accept Terms
+    </label>
+
+</body>
+
+</html>
