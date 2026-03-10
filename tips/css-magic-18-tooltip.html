@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .btn-tooltip {
+            position: relative;
+            padding: 16px 32px;
+            background: rgba(137, 180, 250, 0.1);
+            color: #89b4fa;
+            border: 2px solid #89b4fa;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            /* Mock hover for the recording */
+            animation: mockHover 3s infinite 2s;
+        }
+
+        .btn-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            /* 
+              In real code: transform: translateX(-50%) scale(0);
+              Here we use scale(0) normally, but in mockHover it scales to 1 
+            */
+            transform: translateX(-50%) scale(0);
+
+            padding: 10px 16px;
+            background: #cba6f7;
+            color: #11111b;
+            border-radius: 8px;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+            box-shadow: 0 10px 20px rgba(203, 166, 247, 0.3);
+        }
+
+        @keyframes mockHover {
+
+            0%,
+            20%,
+            80%,
+            100% {
+                background: rgba(137, 180, 250, 0.1);
+                box-shadow: none;
+                transform: translateY(0);
+            }
+
+            30%,
+            70% {
+                background: rgba(137, 180, 250, 0.2);
+                box-shadow: 0 10px 25px rgba(137, 180, 250, 0.2);
+                transform: translateY(-2px);
+            }
+        }
+
+        /* Animate the tooltip in sync with mock hover */
+        .btn-tooltip::after {
+            animation: mockTooltip 3s infinite 2s;
+        }
+
+        @keyframes mockTooltip {
+
+            0%,
+            20%,
+            80%,
+            100% {
+                transform: translateX(-50%) scale(0);
+            }
+
+            30%,
+            70% {
+                transform: translateX(-50%) scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="btn-tooltip" data-tooltip="Hello world! 👋">
+        Hover Me
+    </button>
+
+</body>
+
+</html>
