@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1e1e2e;
+            /* Catppuccin Mocha */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .typewriter {
+            display: inline-block;
+        }
+
+        .typewriter h1 {
+            color: #cdd6f4;
+            font-family: 'Fira Code', monospace;
+            font-size: 32px;
+            overflow: hidden;
+            /* Ensures the content is not revealed until the animation */
+            border-right: 3px solid #f38ba8;
+            /* The typical typewriter cursor */
+            white-space: nowrap;
+            /* Keeps the content on a single line */
+            margin: 0 auto;
+            /* Gives that scrolling effect as the typing happens */
+
+            /* The text 'Coding is aesthetic.' has 20 characters */
+            /* We delay it so the viewer can see it start from scratch in the demo */
+            animation:
+                typing 3.5s steps(20, end) infinite alternate 1s,
+                blink .75s step-end infinite;
+        }
+
+        /* The typing effect */
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        /* The typewriter cursor effect */
+        @keyframes blink {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #f38ba8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="typewriter">
+        <h1>Coding is aesthetic.</h1>
+    </div>
+
+</body>
+
+</html>
