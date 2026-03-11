@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Analytics Dashboard</title>
+    <!-- Import Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icon Font (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #0f172a; margin: 0;">
+    <div class="dashboard-container">
+        <!-- Sidebar Module -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="ph-fill ph-hexagon"></i>
+                <span>NexDash</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <p class="nav-title">MAIN</p>
+                <a href="#" class="nav-item active">
+                    <i class="ph ph-squares-four"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-chart-line-up"></i> Analytics
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-users"></i> Customers
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-wallet"></i> Finances
+                </a>
+                
+                <p class="nav-title">SETTINGS</p>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-gear"></i> Preferences
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-shield-check"></i> Security
+                </a>
+            </nav>
+            
+            <div class="premium-card" id="upgradeBtn">
+                <i class="ph-fill ph-crown"></i>
+                <p>Upgrade to Pro</p>
+                <span>Get all premium features</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Module -->
+            <header class="header">
+                <div class="search-bar">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" placeholder="Search anything...">
+                </div>
+                <div class="user-profile">
+                    <button class="icon-btn"><i class="ph ph-bell"></i><span class="badge"></span></button>
+                    <img src="https://i.pravatar.cc/150?img=11" alt="User Avatar" class="avatar">
+                </div>
+            </header>
+
+            <!-- Dashboard Overview Cards -->
+            <section class="overview-cards">
+                <div class="card stat-card">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-title">Total Revenue</p>
+                            <h2 class="card-value">$124,500</h2>
+                        </div>
+                        <div class="icon-wrapper primary"><i class="ph ph-currency-dollar"></i></div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="trend up"><i class="ph ph-trend-up"></i> +12.5%</span>
+                        <span class="period">from last month</span>
+                    </div>
+                </div>
+                
+                <div class="card stat-card">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-title">Active Users</p>
+                            <h2 class="card-value">12.4K</h2>
+                        </div>
+                        <div class="icon-wrapper secondary"><i class="ph ph-users"></i></div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="trend up"><i class="ph ph-trend-up"></i> +4.2%</span>
+                        <span class="period">from last month</span>
+                    </div>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-title">Bounce Rate</p>
+                            <h2 class="card-value">24.5%</h2>
+                        </div>
+                        <div class="icon-wrapper warning"><i class="ph ph-gauge"></i></div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="trend down"><i class="ph ph-trend-down"></i> -2.1%</span>
+                        <span class="period">from last month</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chart Section -->
+            <section class="chart-section">
+                <div class="card chart-card">
+                    <div class="chart-header">
+                        <h3>Revenue Overview</h3>
+                    <div class="custom-select" id="timeFilter">
+                        <div class="select-selected">This Year <i class="ph ph-caret-down"></i></div>
+                        <div class="select-items select-hide">
+                            <div class="same-as-selected">This Year</div>
+                            <div>Last Year</div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                <div class="card list-card">
+                    <h3>Recent Transactions</h3>
+                    <ul class="transaction-list">
+                        <li class="transaction-item">
+                            <div class="tx-info">
+                                <div class="tx-icon"><i class="ph-fill ph-spotify-logo"></i></div>
+                                <div>
+                                    <p class="tx-name">Spotify Subscription</p>
+                                    <p class="tx-date">Today, 10:24 AM</p>
+                                </div>
+                            </div>
+                            <span class="tx-amount negative">-$12.99</span>
+                        </li>
+                        <li class="transaction-item">
+                            <div class="tx-info">
+                                <div class="tx-icon green"><i class="ph-fill ph-arrow-down-left"></i></div>
+                                <div>
+                                    <p class="tx-name">Salary Deposit</p>
+                                    <p class="tx-date">Yesterday, 09:00 AM</p>
+                                </div>
+                            </div>
+                            <span class="tx-amount positive">+$4,200.00</span>
+                        </li>
+                        <li class="transaction-item">
+                            <div class="tx-info">
+                                <div class="tx-icon"><i class="ph-fill ph-figma-logo"></i></div>
+                                <div>
+                                    <p class="tx-name">Figma Pro</p>
+                                    <p class="tx-date">Aug 12, 11:30 AM</p>
+                                </div>
+                            </div>
+                            <span class="tx-amount negative">-$15.00</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Upgrade Modal -->
+    <div class="modal-overlay" id="upgradeModal">
+        <div class="modal">
+            <button class="close-modal" id="closeModal"><i class="ph ph-x"></i></button>
+            <div class="modal-icon"><i class="ph-fill ph-crown"></i></div>
+            <h2>Unlock NexDash Pro</h2>
+            <p>Get access to advanced analytics, custom reports, and premium support.</p>
+            <ul class="feature-list">
+                <li><i class="ph-fill ph-check-circle"></i> Unlimited Projects</li>
+                <li><i class="ph-fill ph-check-circle"></i> 24/7 Priority Support</li>
+                <li><i class="ph-fill ph-check-circle"></i> Custom Data Exports</li>
+            </ul>
+            <button class="upgrade-btn-main">Upgrade for $29/mo</button>
+        </div>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
