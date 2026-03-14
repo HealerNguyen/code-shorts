@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Staggered Magic ✨</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap">
+    <style>
+        /* 
+           Clean CSS Staggered Animation
+           Powered by CSS Variables & calc()
+        */
+
+        :root {
+            --bg: #060811;
+            --accent: #006aff;
+            --surface: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.1);
+            --color-1: #ff4545;
+            --color-2: #00ff99;
+            --color-3: #006aff;
+            --color-4: #ff0095;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(circle at 50% 50%, #1e1b4b 0%, transparent 80%);
+        }
+
+        .card {
+            width: 320px;
+            padding: 32px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin: 0 0 24px 0;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* THE STAR OF THE SHOW */
+        li {
+            padding: 16px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            font-weight: 700;
+
+            /* Initial state */
+            opacity: 0;
+            transform: translateY(20px);
+
+            /* The Magic: One animation, staggered by index variable */
+            animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: calc(var(--i) * 0.1s);
+            overflow: hidden;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hover effect for polish */
+        li:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--bg-color, var(--color-1));
+            box-shadow: 0 0 15px var(--bg-color, var(--color-1));
+        }
+
+        li:nth-child(1) {
+            --bg-color: var(--color-1);
+        }
+
+        li:nth-child(2) {
+            --bg-color: var(--color-2);
+        }
+
+        li:nth-child(3) {
+            --bg-color: var(--color-3);
+        }
+
+        li:nth-child(4) {
+            --bg-color: var(--color-4);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Assets</h2>
+        <ul class="list">
+            <!-- Set the index variable manually or via JS/Framework -->
+            <li style="--i: 1">Bitcoin (BTC)</li>
+            <li style="--i: 2">Ethereum (ETH)</li>
+            <li style="--i: 3">Solana (SOL)</li>
+            <li style="--i: 4">Cardano (ADA)</li>
+            <li style="--i: 5">Polkadot (DOT)</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
