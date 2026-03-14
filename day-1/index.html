@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced E-commerce Card</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app" v-cloak>
+        <div class="product-card" :class="themeClass">
+            
+            <!-- Category / Badges -->
+            <div class="card-header">
+                <span class="badge new-arrival">New Arrival</span>
+                <button class="wishlist-btn" @click="toggleWishlist" :class="{ active: isWishlisted }">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.62 20.8096C12.28 20.9296 11.72 20.9296 11.38 20.8096C8.48 19.8196 2 15.6896 2 8.68961C2 5.59961 4.49 3.09961 7.56 3.09961C9.38 3.09961 10.99 3.97961 12 5.33961C13.01 3.97961 14.63 3.09961 16.44 3.09961C19.51 3.09961 22 5.59961 22 8.68961C22 15.6896 15.52 19.8196 12.62 20.8096Z" :fill="isWishlisted ? '#f87171' : 'none'" :stroke="isWishlisted ? '#f87171' : 'currentColor'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Product Image with Vue Transition -->
+            <div class="image-container">
+                <transition name="fade" mode="out-in">
+                    <!-- Key is changing when currentColor changes, triggering the transition -->
+                    <img :key="currentColor.id" :src="currentColor.image" :alt="product.name" class="product-image">
+                </transition>
+            </div>
+
+            <!-- Product Details -->
+            <div class="product-details">
+                <h1 class="product-title">{{ product.name }}</h1>
+                <p class="product-desc">{{ product.description }}</p>
+                <div class="product-price">${{ product.price }}</div>
+
+                <div class="selectors">
+                    <!-- Color Selector -->
+                    <div class="selector-group">
+                        <span class="selector-label">Color: <span class="selected-val">{{ currentColor.name }}</span></span>
+                        <div class="color-options">
+                            <button 
+                                v-for="color in product.colors" 
+                                :key="color.id" 
+                                class="color-btn"
+                                :class="{ active: currentColor.id === color.id }"
+                                :style="{ backgroundColor: color.hex }"
+                                @click="selectColor(color)"
+                            ></button>
+                        </div>
+                    </div>
+
+                    <!-- Size Selector -->
+                    <div class="selector-group">
+                        <span class="selector-label">Size: <span class="selected-val">{{ currentSize }}</span></span>
+                        <div class="size-options">
+                            <button 
+                                v-for="size in product.sizes" 
+                                :key="size" 
+                                class="size-btn"
+                                :class="{ active: currentSize === size }"
+                                @click="selectSize(size)"
+                            >{{ size }}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add to Cart Action -->
+                <button 
+                    class="add-to-cart-btn" 
+                    :class="cartState"
+                    @click="addToCart"
+                    :disabled="cartState !== 'idle'"
+                >
+                    <span v-if="cartState === 'idle'" class="btn-content">
+                        Add to Cart 
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </span>
+                    
+                    <span v-if="cartState === 'loading'" class="btn-content loader">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spinner"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                    </span>
+
+                    <span v-if="cartState === 'added'" class="btn-content success">
+                        Added 
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
