@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;900&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #090a0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Ambient glow for the room */
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(0, 106, 255, 0.1) 0%, rgba(255, 0, 149, 0.05) 30%, transparent 70%);
+            z-index: -1;
+            opacity: 0;
+            animation: roomGlow 0.5s forwards 1.5s;
+        }
+
+        @property --angle {
+            syntax: "<angle>";
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        .magic-card {
+            position: relative;
+            width: 320px;
+            height: 440px;
+            background: #0f172a;
+            border-radius: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            
+            /* The Magic */
+            border: 4px solid transparent;
+            background-image: 
+                linear-gradient(#0f172a, #0f172a), 
+                conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            
+            animation: spin 3s linear infinite;
+            box-shadow: 0 0 50px rgba(0, 106, 255, 0.2);
+            opacity: 1; /* Ensure visibility is stable */
+        }
+
+        .magic-card::after {
+            content: "";
+            position: absolute;
+            inset: -10px;
+            background: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+            filter: blur(40px);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .magic-card h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        @keyframes spin {
+            from { --angle: 0deg; }
+            to { --angle: 360deg; }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    <div class="magic-card">
+        <h2>Neon<br>Border</h2>
+    </div>
+</body>
+</html>
