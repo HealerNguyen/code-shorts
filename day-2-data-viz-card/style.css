@@ -1,0 +1,163 @@
+:root {
+    --bg-dark: #080911;
+    --card-bg: rgba(13, 15, 28, 0.7);
+    --accent-up: #00ffaa;
+    --accent-down: #ff3e3e;
+    --glow-up: rgba(0, 255, 170, 0.2);
+    --glow-down: rgba(255, 62, 62, 0.2);
+    --text-main: #ffffff;
+    --text-dim: #a0a6cc;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('img/bg.png') center/cover no-repeat;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+[v-cloak] { display: none; }
+
+.glass-container {
+    perspective: 1000px;
+}
+
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 32px;
+    padding: 32px;
+    width: 340px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+/* Vue 3 v-bind usage for Dynamic Colors */
+.card.trend-up {
+    border-color: rgba(0, 255, 170, 0.3);
+    box-shadow: 0 0 40px var(--glow-up);
+}
+.card.trend-down {
+    border-color: rgba(255, 62, 62, 0.3);
+    box-shadow: 0 0 40px var(--glow-down);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-up);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-up);
+    animation: pulse 2s infinite;
+}
+
+.main-stats .label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin: 0;
+}
+
+.value-container {
+    display: flex;
+    align-items: baseline;
+    margin-top: 8px;
+}
+
+.currency {
+    font-size: 24px;
+    font-weight: 600;
+    margin-right: 4px;
+    color: var(--text-dim);
+}
+
+.value {
+    font-size: 48px;
+    font-weight: 800;
+    font-family: 'Fira Code', monospace;
+}
+
+.change-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.change-tag.up { color: var(--accent-up); background: rgba(0, 255, 170, 0.1); }
+.change-tag.down { color: var(--accent-down); background: rgba(255, 62, 62, 0.1); }
+
+.chart-container {
+    margin: 24px 0;
+    height: 60px;
+}
+
+.sparkline path {
+    /* Use CSS variable linked to Vue state via v-bind in JS */
+    stroke: var(--theme-color);
+}
+
+.footer-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+}
+
+.stat-val {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes draw {
+    from { stroke-dashoffset: 200; }
+    to { stroke-dashoffset: 0; }
+}

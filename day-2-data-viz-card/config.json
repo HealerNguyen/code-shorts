@@ -1,0 +1,10 @@
+{
+    "title": "Real-time Data Viz Card 📊",
+    "cta": "Full source in bio/comment!",
+    "demo_duration": 15000,
+    "interactions": [
+        { "type": "hover", "selector": ".card", "delay": 4000 },
+        { "type": "hover", "selector": ".sparkline", "delay": 4000 },
+        { "type": "hover", "selector": ".footer-stats", "delay": 4000 }
+    ]
+}

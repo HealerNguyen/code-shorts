@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Data Tracker | Day 3</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app" v-cloak>
+        <div class="glass-container">
+            <div class="card" :class="{ 'trend-up': isUp, 'trend-down': !isUp }">
+                <div class="card-header">
+                    <div class="badge">LIVE TRACKER</div>
+                    <div class="status-dot"></div>
+                </div>
+
+                <div class="main-stats">
+                    <h2 class="label">Total Balance</h2>
+                    <div class="value-container">
+                        <span class="currency">$</span>
+                        <span class="value">{{ animatedDisplayValue }}</span>
+                    </div>
+                    <div class="change-tag" :class="isUp ? 'up' : 'down'">
+                        {{ isUp ? '▲' : '▼' }} {{ changePercent }}%
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <svg class="sparkline" viewBox="0 0 200 60">
+                        <path :d="chartPath" fill="none" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
+
+                <div class="footer-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">VOL (24H)</span>
+                        <span class="stat-val">$1.2M</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">MARKET CAP</span>
+                        <span class="stat-val">$42.8B</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
