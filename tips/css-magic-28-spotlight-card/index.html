@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotlight Card</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #030712;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Subtle dot grid background */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 28px 28px;
+            z-index: 0;
+        }
+
+        /* ─── Spotlight Card ─── */
+        .card {
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+
+            position: relative;
+            width: 380px;
+            padding: 40px;
+            border-radius: 20px;
+            background: #0d1117;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            cursor: default;
+            z-index: 1;
+        }
+
+        /* Spotlight border glow — tracks cursor via CSS custom props */
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 20px;
+            background: radial-gradient(
+                400px circle at var(--mouse-x) var(--mouse-y),
+                rgba(139, 92, 246, 0.65),
+                transparent 50%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Inner ambient glow */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 1px;
+            border-radius: 19px;
+            background: radial-gradient(
+                280px circle at var(--mouse-x) var(--mouse-y),
+                rgba(139, 92, 246, 0.1),
+                transparent 60%
+            );
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* ─── Card Content ─── */
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.45);
+        }
+
+        .icon svg {
+            width: 26px;
+            height: 26px;
+            color: #fff;
+            stroke: #fff;
+        }
+
+        .card h2 {
+            margin: 0 0 12px;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: -0.02em;
+        }
+
+        .card p {
+            margin: 0 0 28px;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #64748b;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 22px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.45);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.65);
+        }
+
+        .btn:hover svg {
+            transform: translateX(3px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="card" id="card">
+    <!-- Glow layers via ::before and ::after (CSS) -->
+    <div class="card-content">
+        <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h2>Spotlight Effect</h2>
+        <p>Move your cursor across the card to reveal the glowing border that tracks your mouse.</p>
+        <button class="btn">
+            Explore
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const card = document.getElementById('card');
+
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+
+        card.style.setProperty(
+            '--mouse-x',
+            `${e.clientX - rect.left}px`
+        );
+        card.style.setProperty(
+            '--mouse-y',
+            `${e.clientY - rect.top}px`
+        );
+    });
+</script>
+</body>
+</html>
