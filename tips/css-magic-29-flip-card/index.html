@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Flip Card</title>
+    <style>
+      body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #060614;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+}
+
+/* Ambient background glow */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 40% at 30% 60%, rgba(99, 57, 230, 0.18), transparent),
+        radial-gradient(ellipse 50% 35% at 75% 35%, rgba(236, 72, 153, 0.12), transparent);
+    pointer-events: none;
+}
+
+/* ─── Scene + perspective ─── */
+.scene {
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+/* ─── Card wrapper — transforms on hover ─── */
+.card {
+    position: relative;
+    width: 320px;
+    height: 420px;
+    transform-style: preserve-3d;
+    transition: transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.scene:hover .card {
+    transform: rotateY(180deg);
+}
+
+/* ─── Shared face styles ─── */
+.face {
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+}
+
+/* ══════════════════════════════
+   FRONT FACE
+══════════════════════════════ */
+.face.front {
+    background: linear-gradient(160deg, #13111c 0%, #1b1728 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 1px 0 rgba(255,255,255,0.06) inset;
+}
+
+/* Gradient header strip */
+.front-bg {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, #6d28d9, #a855f7 50%, #ec4899);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.front-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Avatar ring sitting on the seam */
+.avatar-ring {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    padding: 3px;
+    margin-top: -43px;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #1b1728;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e2e8f0;
+}
+
+.front-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px 0;
+    text-align: center;
+}
+
+.front-info h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: -0.025em;
+}
+
+.role {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #a855f7;
+    font-weight: 500;
+}
+
+.tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tags span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+}
+
+.hint {
+    margin-top: auto;
+    margin-bottom: 22px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════
+   BACK FACE  — pre-rotated 180°
+══════════════════════════════ */
+.face.back {
+    transform: rotateY(180deg);
+    background: linear-gradient(160deg, #180f2e 0%, #1a0e2c 100%);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(168,85,247,0.12) inset;
+}
+
+/* Top glow accent */
+.face.back::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 120px;
+    background: radial-gradient(ellipse, rgba(168, 85, 247, 0.3), transparent 70%);
+    pointer-events: none;
+}
+
+.back-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.avatar-sm {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.back-name {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #f1f5f9;
+}
+
+.back-title {
+    margin: 3px 0 0;
+    font-size: 0.78rem;
+    color: #a855f7;
+    font-weight: 500;
+}
+
+.bio {
+    margin: 0 0 24px;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #64748b;
+}
+
+.stats {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 18px 0;
+    margin-bottom: 24px;
+}
+
+.stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat + .stat {
+    border-left: 1px solid rgba(255,255,255,0.06);
+}
+
+.val {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    letter-spacing: -0.02em;
+}
+
+.lbl {
+    font-size: 0.72rem;
+    color: #475569;
+    font-weight: 500;
+}
+
+.cta-btn {
+    display: block;
+    text-align: center;
+    padding: 13px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(124, 58, 237, 0.45);
+    transition: opacity 0.2s;
+    margin-top: auto;
+}
+
+.cta-btn:hover { opacity: 0.9; }
+
+    </style>
+</head>
+<body>
+
+<div class="scene">
+    <div class="card">
+
+        <!-- ── Front Face ── -->
+        <div class="face front">
+            <div class="front-bg"></div>
+            <div class="avatar-ring">
+                <div class="avatar">A</div>
+            </div>
+            <div class="front-info">
+                <h2>Alex Rivera</h2>
+                <p class="role">Senior UI Designer</p>
+                <div class="tags">
+                    <span>Figma</span>
+                    <span>CSS</span>
+                    <span>Motion</span>
+                </div>
+            </div>
+            <div class="hint">Hover to flip →</div>
+        </div>
+
+        <!-- ── Back Face ── -->
+        <div class="face back">
+            <div class="back-header">
+                <div class="avatar-sm">A</div>
+                <div>
+                    <p class="back-name">Alex Rivera</p>
+                    <p class="back-title">Open for work ✦</p>
+                </div>
+            </div>
+
+            <p class="bio">Crafting pixel-perfect interfaces with a passion for micro-interactions and delightful user experiences.</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="val">4.2k</span>
+                    <span class="lbl">Followers</span>
+                </div>
+                <div class="stat">
+                    <span class="val">120</span>
+                    <span class="lbl">Projects</span>
+                </div>
+                <div class="stat">
+                    <span class="val">8yr</span>
+                    <span class="lbl">Exp</span>
+                </div>
+            </div>
+
+            <a class="cta-btn" href="#">View Portfolio →</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
