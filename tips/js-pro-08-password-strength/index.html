@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Meter</title>
+    <style>
+      body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #04040e;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 55% 40% at 20% 70%, rgba(99, 57, 230, 0.15), transparent),
+        radial-gradient(ellipse 45% 35% at 80% 25%, rgba(16, 185, 129, 0.08), transparent);
+    pointer-events: none;
+}
+
+/* ── Card ── */
+.card {
+    position: relative;
+    z-index: 1;
+    width: 380px;
+    background: #0d0d1a;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 24px;
+    padding: 36px 32px 32px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ── Header ── */
+.card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lock-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    box-shadow: 0 6px 18px rgba(124,58,237,0.4);
+}
+
+.lock-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: #fff;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: -0.025em;
+}
+
+.card-header p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.5;
+}
+
+/* ── Field ── */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #94a3b8;
+    letter-spacing: 0.03em;
+}
+
+.input-wrap {
+    position: relative;
+}
+
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 46px 13px 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.09);
+    border-radius: 12px;
+    color: #e2e8f0;
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    caret-color: #a855f7;
+}
+
+input:focus {
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
+}
+
+.toggle-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    color: #475569;
+    transition: color 0.2s;
+}
+
+.toggle-btn:hover { color: #a855f7; }
+
+.toggle-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+}
+
+/* ── Strength bars ── */
+.bars {
+    display: flex;
+    gap: 6px;
+    margin-top: 2px;
+}
+
+.bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.08);
+    transition: background 0.35s ease, transform 0.25s ease;
+}
+
+/* Strength label */
+.strength-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    min-height: 18px;
+    letter-spacing: 0.04em;
+    transition: color 0.3s ease;
+}
+
+/* ── Rules checklist ── */
+.rules {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rule {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.83rem;
+    color: #334155;
+    transition: color 0.35s ease;
+    font-weight: 500;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    flex-shrink: 0;
+    transition: background 0.35s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rule.pass {
+    color: #94a3b8;
+}
+
+.rule.pass .dot {
+    background: #22c55e;
+    transform: scale(1.25);
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);
+}
+
+/* ── Submit button ── */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0.35;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    pointer-events: none;
+    letter-spacing: -0.01em;
+}
+
+.submit-btn.unlocked {
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.45);
+    animation: unlock-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.submit-btn.unlocked:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(124, 58, 237, 0.6);
+}
+
+@keyframes unlock-pop {
+    0%   { transform: scale(0.95); }
+    60%  { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="card-header">
+        <div class="lock-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+        </div>
+        <h2>Create Password</h2>
+        <p>Choose a strong password to secure your account.</p>
+    </div>
+
+    <div class="field">
+        <label>Password</label>
+        <div class="input-wrap">
+            <input type="password" id="pwd" placeholder="Enter your password…" autocomplete="off" />
+            <button class="toggle-btn" id="toggle" aria-label="Toggle visibility">
+                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                    <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                    <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Strength bars -->
+        <div class="bars">
+            <div class="bar" id="bar0"></div>
+            <div class="bar" id="bar1"></div>
+            <div class="bar" id="bar2"></div>
+            <div class="bar" id="bar3"></div>
+        </div>
+        <div class="strength-label" id="strength-label"></div>
+    </div>
+
+    <!-- Rules checklist -->
+    <ul class="rules" id="rules-list">
+        <li class="rule" data-re="/.{8,}/">
+            <span class="dot"></span> 8+ characters
+        </li>
+        <li class="rule" data-re="/[A-Z]/">
+            <span class="dot"></span> Uppercase letter
+        </li>
+        <li class="rule" data-re="/[0-9]/">
+            <span class="dot"></span> Number
+        </li>
+        <li class="rule" data-re="/[^A-Za-z0-9]/">
+            <span class="dot"></span> Special symbol
+        </li>
+    </ul>
+
+    <button class="submit-btn" id="submit-btn" disabled>Continue →</button>
+</div>
+
+<script type="text/javascript">
+  const input      = document.getElementById('pwd');
+const toggle     = document.getElementById('toggle');
+const bars       = [0,1,2,3].map(i => document.getElementById(`bar${i}`));
+const strengthLbl = document.getElementById('strength-label');
+const submitBtn  = document.getElementById('submit-btn');
+const ruleItems  = document.querySelectorAll('.rule');
+
+const rules = [
+    { re: /.{8,}/,          el: ruleItems[0] },
+    { re: /[A-Z]/,          el: ruleItems[1] },
+    { re: /[0-9]/,          el: ruleItems[2] },
+    { re: /[^A-Za-z0-9]/,  el: ruleItems[3] },
+];
+
+const levels = [
+    { label: 'Weak',   color: '#ef4444' },
+    { label: 'Fair',   color: '#f97316' },
+    { label: 'Good',   color: '#eab308' },
+    { label: 'Strong', color: '#22c55e' },
+];
+
+input.addEventListener('input', () => {
+    const val   = input.value;
+    const score = rules.filter(r => r.re.test(val)).length;
+
+    // Update rule checkmarks
+    rules.forEach(r => {
+        r.el.classList.toggle('pass', r.re.test(val));
+    });
+
+    // Update bars
+    const cfg = score > 0 ? levels[score - 1] : null;
+    bars.forEach((bar, i) => {
+        bar.style.background = (i < score && cfg) ? cfg.color : '';
+    });
+
+    // Strength label
+    if (val.length === 0) {
+        strengthLbl.textContent = '';
+        strengthLbl.style.color = '';
+    } else {
+        strengthLbl.textContent = cfg.label;
+        strengthLbl.style.color = cfg.color;
+    }
+
+    // Unlock submit when all 4 rules pass
+    const allPass = score === 4;
+    submitBtn.classList.toggle('unlocked', allPass);
+    submitBtn.disabled = !allPass;
+});
+
+// Show / hide password
+toggle.addEventListener('click', () => {
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    toggle.querySelector('.eye-open').style.display  = isHidden ? 'none'  : '';
+    toggle.querySelector('.eye-closed').style.display = isHidden ? ''     : 'none';
+});
+</script>
+</body>
+</html>
