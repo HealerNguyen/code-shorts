@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infinite Marquee ∞</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #04040f;
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 0;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* ─── Marquee wrapper ───────────────────────────────────────── */
+.marquee {
+  overflow: hidden;
+  width: 100%;
+  padding: 12px 0;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* ─── Scrolling track ───────────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 20px;
+  animation: scroll 22s linear infinite;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+/* Pause on hover */
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Individual items ──────────────────────────────────────── */
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0d0d1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  padding: 12px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  white-space: nowrap;
+  cursor: default;
+  transition: border-color 0.25s, background 0.25s;
+  user-select: none;
+}
+
+.item:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  background: rgba(124, 58, 237, 0.15);
+}
+
+.item span { font-size: 1.2rem; }
+
+  </style>
+</head>
+<body>
+
+  <h2>Trusted by teams worldwide</h2>
+
+  <!-- Row 1 — scrolls left -->
+  <div class="marquee">
+    <div class="marquee-track" id="track1">
+      <div class="item"><span>⚛️</span> React</div>
+      <div class="item"><span>💚</span> Vue</div>
+      <div class="item"><span>🔷</span> TypeScript</div>
+      <div class="item"><span>🎨</span> Figma</div>
+      <div class="item"><span>🟢</span> Node.js</div>
+      <div class="item"><span>🌊</span> Tailwind</div>
+      <div class="item"><span>🐙</span> GitHub</div>
+      <div class="item"><span>▲</span> Vercel</div>
+      <div class="item"><span>🦕</span> Deno</div>
+      <div class="item"><span>🔥</span> Firebase</div>
+    </div>
+  </div>
+
+  <!-- Row 2 — scrolls right -->
+  <div class="marquee">
+    <div class="marquee-track reverse" id="track2">
+      <div class="item"><span>🐋</span> Docker</div>
+      <div class="item"><span>☁️</span> AWS</div>
+      <div class="item"><span>🍃</span> MongoDB</div>
+      <div class="item"><span>🐘</span> PostgreSQL</div>
+      <div class="item"><span>🦀</span> Rust</div>
+      <div class="item"><span>🐍</span> Python</div>
+      <div class="item"><span>📦</span> Webpack</div>
+      <div class="item"><span>⚡</span> Vite</div>
+      <div class="item"><span>🧪</span> Vitest</div>
+      <div class="item"><span>🎭</span> Playwright</div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    document.querySelectorAll('.marquee-track').forEach(track => {
+  // Double the items so translateX(-50%) creates a seamless loop
+  const items = [...track.children];
+  items.forEach(item => track.appendChild(item.cloneNode(true)));
+});
+
+  </script>
+</body>
+</html>
