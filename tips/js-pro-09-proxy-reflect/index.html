@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy & Reflect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="panel">
+    <div class="panel-title">State (Proxied Object)</div>
+    <div class="field">
+        <label>Name</label>
+        <input class="proxy-input" type="text" data-key="name" placeholder="Type something..." />
+    </div>
+    <div class="field">
+        <label>Email</label>
+        <input class="proxy-input" type="text" data-key="email" placeholder="Type something..." />
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-title">Proxy Log</div>
+    <div class="log" id="log"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

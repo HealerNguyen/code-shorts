@@ -1,0 +1,103 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #04040f;
+    color: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+    gap: 24px;
+}
+
+.panel {
+    background: #0d0d1a;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    padding: 28px;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.panel-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #4b5563;
+    margin-bottom: 4px;
+}
+
+/* ── Form ── */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.field input {
+    background: #060612;
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 11px 14px;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+/* ── Log ── */
+.log {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 120px;
+}
+
+.log-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.78rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #060612;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    animation: slideIn 0.25s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.log-entry .op {
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+
+.log-entry.get .op  { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
+.log-entry.set .op  { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+.log-entry.del .op  { background: rgba(239, 68, 68, 0.15);  color: #f87171; }
+
+.log-entry .key  { color: #e2e8f0; }
+.log-entry .val  { color: #34d399; }
+.log-entry .arrow { color: #4b5563; }
