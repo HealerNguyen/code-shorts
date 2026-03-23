@@ -1,0 +1,44 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    --dot-color: rgba(124, 58, 237, 0.5);
+    --dot-size:  1.5px;
+    --dot-gap:   28px;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: #04040f;
+    background-image: radial-gradient(
+        circle,
+        var(--dot-color) var(--dot-size),
+        transparent var(--dot-size)
+    );
+    background-size: var(--dot-gap) var(--dot-gap);
+    color: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    background: rgba(13, 13, 26, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 48px 64px;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(124, 58, 237, 0.12);
+}
+
+.card h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #64748b;
+    font-size: 0.95rem;
+}

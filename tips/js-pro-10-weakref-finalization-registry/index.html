@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeakRef & FinalizationRegistry</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="panel">
+    <div class="panel-title">Object State</div>
+    <div class="obj-card alive" id="objCard">
+        <span class="obj-brace">{ </span>
+        <span class="obj-key">name</span>: <span class="obj-val">"Alice"</span>,
+        <span class="obj-key">role</span>: <span class="obj-val">"Dev"</span>
+        <span class="obj-brace"> }</span>
+    </div>
+    <div class="status-row">
+        <span class="badge alive" id="statusBadge">● alive</span>
+    </div>
+    <div style="display:flex;gap:10px">
+        <button id="btnDeref" style="flex:1;background:#0d0d1a;border:1px solid rgba(168,85,247,0.3);color:#c084fc;border-radius:10px;padding:10px;cursor:pointer;font-size:0.85rem;">ref.deref()</button>
+        <button id="btnGC" style="flex:1;background:#0d0d1a;border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:10px;padding:10px;cursor:pointer;font-size:0.85rem;">simulate GC</button>
+    </div>
+    <div style="font-size:0.78rem;color:#64748b">deref result: <span id="derefResult" style="color:#34d399;font-family:monospace">"Alice"</span></div>
+</div>
+
+<div class="panel">
+    <div class="panel-title">Log</div>
+    <div class="log" id="log"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
