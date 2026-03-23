@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Custom Highlight API</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        ::highlight(search-result) {
+            background-color: rgba(124, 58, 237, 0.4);
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+<div class="panel">
+    <div class="panel-title">CSS Custom Highlight API</div>
+
+    <div class="search-bar">
+        <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Type to search and highlight..."
+            autocomplete="off"
+            spellcheck="false"
+        >
+        <button class="search-btn" onclick="document.getElementById('searchInput').dispatchEvent(new Event('input'))">Search</button>
+    </div>
+
+    <div class="match-info" id="matchInfo"></div>
+
+    <div class="text-content" id="content">
+        JavaScript is a versatile programming language that powers the modern web. With features like async/await, destructuring, and optional chaining, JavaScript makes complex tasks simple. The CSS Custom Highlight API lets you highlight ranges of text in the DOM without modifying its structure — combining the power of JavaScript and CSS for elegant, performant highlights.
+    </div>
+
+    <div class="code-block visible">
+<span class="cmt">// No DOM wrappers needed:</span>
+<span class="kw">const</span> range = <span class="kw">new</span> <span class="fn">Range</span>()
+range.<span class="fn">setStart</span>(textNode, start)
+range.<span class="fn">setEnd</span>(textNode, end)
+
+<span class="kw">const</span> hl = <span class="kw">new</span> <span class="fn">Highlight</span>(range)
+<span class="fn">CSS.highlights</span>.<span class="fn">set</span>(<span class="str">'search-result'</span>, hl)
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
