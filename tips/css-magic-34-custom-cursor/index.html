@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Cursor ✦</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Dual cursor: dot + lagging ring -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <div class="container">
+    <h1>Move your mouse ✦</h1>
+    <p>Hover over the cards below to see the cursor scale up with <code>mix-blend-mode: difference</code>.</p>
+
+    <div class="links">
+      <a class="link-card" href="#">
+        <span class="icon">⚛️</span>
+        <span class="label">React</span>
+        <span class="sub">Hover me</span>
+      </a>
+      <a class="link-card" href="#">
+        <span class="icon">💚</span>
+        <span class="label">Vue</span>
+        <span class="sub">Hover me</span>
+      </a>
+      <a class="link-card" href="#">
+        <span class="icon">🔷</span>
+        <span class="label">TypeScript</span>
+        <span class="sub">Hover me</span>
+      </a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
