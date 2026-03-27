@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AbortController</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="panel">
+    <div class="panel-title">AbortController</div>
+
+    <div class="search-bar">
+        <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Type to search (auto-cancels previous)..."
+            autocomplete="off"
+            spellcheck="false"
+        >
+    </div>
+
+    <div class="status-bar" id="statusBar">
+        <span class="status-dot"></span>
+        <span class="status-text">Idle — waiting for input</span>
+    </div>
+
+    <div class="request-log" id="requestLog">
+        <div class="log-title">Request Log</div>
+    </div>
+
+    <div class="code-block visible">
+<span class="kw">const</span> controller = <span class="kw">new</span> <span class="fn">AbortController</span>()
+<span class="kw">const</span> { signal } = controller
+
+<span class="fn">fetch</span>(<span class="str">'/api/search'</span>, { signal })
+  .<span class="fn">catch</span>(e => {
+    <span class="kw">if</span> (e.name === <span class="str">'AbortError'</span>)
+      console.<span class="fn">log</span>(<span class="str">'Cancelled ✓'</span>)
+  })
+
+controller.<span class="fn">abort</span>() <span class="cmt">// cancel!</span>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
