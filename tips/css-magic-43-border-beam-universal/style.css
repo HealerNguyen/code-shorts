@@ -1,0 +1,82 @@
+:root {
+    --bg: #030712;
+    --card-bg: #0f172a;
+    --beam-color: conic-gradient(from 0deg, transparent 60%, #818cf8, #c084fc, transparent 100%);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: var(--bg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ── The beam card ── */
+.beam-card {
+    position: relative;
+    width: 400px;
+    height: 250px;
+    background: var(--card-bg);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Rotating beam layer */
+.beam-card::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: var(--beam-color);
+    animation: rotate-beam 4s linear infinite;
+    z-index: -1;
+}
+
+/* Inner mask to create thin border */
+.beam-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: var(--card-bg);
+    border-radius: 22px;
+    z-index: -1;
+}
+
+@keyframes rotate-beam {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+h2 {
+    font-weight: 200;
+    letter-spacing: 5px;
+    margin: 0;
+}
+
+p {
+    opacity: 0.4;
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
