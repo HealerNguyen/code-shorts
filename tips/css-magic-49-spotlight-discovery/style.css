@@ -1,0 +1,72 @@
+:root {
+    --bg: #050505;
+    --text-dark: #1a1a1a;
+    --text-light: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: var(--bg);
+    display: grid;
+    place-items: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 80%;
+    text-align: center;
+}
+
+/* Dark base text */
+.text-base {
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.1;
+    user-select: none;
+}
+
+/* Bright spotlight layer */
+.text-spotlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-light);
+
+    -webkit-mask-image: radial-gradient(200px circle at var(--x, -100%) var(--y, -100%),
+            black 20%,
+            transparent 100%);
+    mask-image: radial-gradient(200px circle at var(--x, -100%) var(--y, -100%),
+            black 20%,
+            transparent 100%);
+    pointer-events: none;
+}
+
+/* Subtle glow around cursor */
+.cursor-glow {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(300px circle at var(--x, -100%) var(--y, -100%),
+            rgba(255, 255, 255, 0.05),
+            transparent 100%);
+    pointer-events: none;
+    z-index: 5;
+}
