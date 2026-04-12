@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+    background: #010208;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    display: block;
+    filter: contrast(1.15) brightness(1.1);
+}
+
+.label {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.15);
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    font-size: 3rem;
+    letter-spacing: 15px;
+    text-transform: uppercase;
+    pointer-events: none;
+}

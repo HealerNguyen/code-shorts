@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    background: #010208;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    display: block;
+    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+}
+
+.status {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    color: #6366f1;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    line-height: 2;
+    opacity: 0.6;
+}
