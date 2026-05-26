@@ -1,0 +1,22 @@
+/* 🐭 Organic mouse shape — asymmetric border-radius */
+.razer-mouse {
+  border-radius: 65px 65px 50px 50px
+               / 95px 95px 70px 70px;
+  transform: translateZ(20px); /* 3D lift above pad */
+}
+
+/* 🔆 Logo via mask-image — no <img> needed! */
+.razer-logo {
+  background-color: #00ff00;
+  mask-image: url('razer.svg');
+  filter: drop-shadow(0 0 12px #00ff00);
+  animation: breathe 3s ease-in-out infinite alternate;
+}
+
+/* 🌈 RGB border using ::before + inset */
+.mouse-pad::before {
+  content: '';
+  inset: -3px;  /* overflow outside by 3px */
+  background: linear-gradient(120deg, red, yellow, green, blue);
+  animation: pad-rgb 4s linear infinite;
+}

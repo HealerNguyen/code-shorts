@@ -1,0 +1,204 @@
+:root {
+    --bg: #050505;
+    --mouse-body: #111111;
+    --mouse-highlight: #2a2a2a;
+    --razer-green: #00ff00;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0; 
+    background: radial-gradient(circle at 50% 30%, #1a1a24 0%, var(--bg) 80%);
+    min-height: 100vh;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    overflow: hidden;
+}
+
+/* 🔲 TẤM LÓT CHUỘT (RGB GAMING PAD) */
+.mouse-pad {
+    position: relative;
+    width: 380px;
+    height: 480px;
+    /* Tạo vân nhám (Micro-texture cloth surface) */
+    background: 
+        linear-gradient(rgba(15,15,15,0.9), rgba(10,10,10,0.95)),
+        repeating-linear-gradient(45deg, #111 0px, #111 2px, #151515 2px, #151515 4px);
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Góc nghiêng 3D của mặt bàn */
+    transform: perspective(1000px) rotateX(25deg);
+    transform-style: preserve-3d;
+    
+    /* Bóng đổ của pad xuống mặt bàn */
+    box-shadow: 
+        0 30px 60px rgba(0,0,0,0.95),
+        inset 0 2px 5px rgba(255,255,255,0.05);
+}
+
+/* VIỀN LED RGB CHẢY QUANH PAD CHUỘT */
+.mouse-pad::before {
+    content: '';
+    position: absolute;
+    inset: -3px; /* Tràn ra ngoài 3px tạo viền */
+    border-radius: 26px;
+    background: linear-gradient(120deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+    background-size: 300% 300%;
+    z-index: -1;
+    animation: pad-rgb 4s linear infinite;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+}
+
+/* ĐỘ DÀY CỦA PAD CHUỘT (Nhìn từ cạnh dưới) */
+.mouse-pad::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 2px; right: 2px;
+    height: 6px;
+    background: #090909;
+    border-radius: 0 0 24px 24px;
+    z-index: -2;
+}
+
+@keyframes pad-rgb {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🟢 ÁNH SÁNG GẦM CHUỘT TRÊN MẶT PAD */
+.underglow {
+    position: absolute;
+    width: 150px;
+    height: 240px;
+    background: var(--razer-green);
+    filter: blur(25px);
+    opacity: 0.25;
+    border-radius: 50%;
+    animation: breathe-underglow 3s ease-in-out infinite alternate;
+    transform: translateZ(1px); /* Nằm ngay sát mặt pad */
+}
+
+@keyframes breathe-underglow {
+    0% { opacity: 0.15; transform: translateZ(1px) scale(0.95); }
+    100% { opacity: 0.6; transform: translateZ(1px) scale(1.05); }
+}
+
+/* 🐍 BODY CON CHUỘT (Nổi lên trên Pad) */
+.razer-mouse {
+    position: relative;
+    width: 140px;
+    height: 240px;
+    background: linear-gradient(180deg, var(--mouse-highlight) 0%, var(--mouse-body) 50%);
+    border-radius: 65px 65px 50px 50px / 95px 95px 70px 70px;
+    
+    /* BÓNG ĐỔ CỦA CHUỘT XUỐNG PAD */
+    box-shadow: 
+        -15px 15px 25px rgba(0,0,0,0.8),
+        15px 15px 25px rgba(0,0,0,0.8),
+        inset 0 5px 12px rgba(255,255,255,0.1),
+        inset 0 -12px 25px rgba(0,0,0,1);
+        
+    display: flex;
+    justify-content: center;
+    transform: translateZ(20px); /* Nâng chuột lơ lửng so với pad */
+    z-index: 10;
+}
+
+/* RÃNH CHIA CẮT HAI NÚT CLICK */
+.middle-slit {
+    position: absolute;
+    top: 0;
+    width: 4px;
+    height: 100px;
+    background: #000;
+    border-radius: 0 0 5px 5px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.9);
+}
+
+/* ⚙️ CON LĂN CHUỘT */
+.scroll-wheel {
+    position: absolute;
+    top: 25px;
+    width: 16px;
+    height: 40px;
+    background: #000;
+    border-radius: 8px;
+    border: 2px solid var(--mouse-highlight);
+    box-shadow: 
+        0 0 15px var(--razer-green),
+        inset 0 0 5px var(--razer-green);
+    z-index: 15;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, #222 2px, #222 4px);
+    transition: transform 0.1s;
+}
+
+.scroll-wheel.scrolled {
+    transform: translateY(-2px);
+}
+
+/* 💥 HIỆU ỨNG CLICK CHUỘT TRÁI/PHẢI */
+.click-zone {
+    position: absolute;
+    top: 0;
+    width: 48%;
+    height: 85px;
+    border-radius: 50px 10px 10px 10px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.click-left { left: 0; border-radius: 65px 0 10px 30px; }
+.click-right { right: 0; border-radius: 0 65px 30px 10px; }
+
+.click-left:active, .click-left.pressed {
+    background: radial-gradient(circle at top left, rgba(0,255,0,0.1), transparent);
+    box-shadow: inset 2px 5px 10px rgba(0,0,0,0.7);
+}
+
+.click-right:active, .click-right.pressed {
+    background: radial-gradient(circle at top right, rgba(0,255,0,0.1), transparent);
+    box-shadow: inset -2px 5px 10px rgba(0,0,0,0.7);
+}
+
+/* -------------------------------------------
+   🔆 LOGO RAZER CHUẨN (SỬ DỤNG MASK-IMAGE)
+   ------------------------------------------- */
+.razer-logo {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+    
+    /* Đổ màu xanh dạ quang cho toàn khối */
+    background-color: var(--razer-green);
+    
+    /* Dùng khuôn SVG để cắt ra hình 3 con rắn */
+    mask-image: url('https://cdn.simpleicons.org/razer');
+    -webkit-mask-image: url('https://cdn.simpleicons.org/razer');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    
+    /* Tạo ánh sáng LED nhòe ra xung quanh */
+    filter: drop-shadow(0 0 8px var(--razer-green)) drop-shadow(0 0 15px var(--razer-green));
+    
+    /* Hiệu ứng thở + cố định căn giữa (translateX) */
+    animation: breathe-logo 3s ease-in-out infinite alternate;
+    z-index: 20;
+}
+
+@keyframes breathe-logo {
+    0% { opacity: 0.3; transform: translateX(-50%) scale(0.95); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+}

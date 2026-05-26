@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gooey Menu Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2 style="font-weight: 200; letter-spacing: 5px;">THE GOOEY ILLUSION 2.0</h2>
+
+    <div class="main-layout">
+        <div class="code-panel">
+            <div style="color: #64748b;">// Secret: Linear Gradient blends with SVG Filter</div>
+            <div style="color: #f472b6;">.btn-main {</div>
+            <div>&nbsp;&nbsp;background: linear-gradient(135deg, #f472b6, #8b5cf6);</div>
+            <div>&nbsp;&nbsp;transform: scale(0.85); <span style="color: #64748b;">// Main button shrinks</span></div>
+            <div style="color: #f472b6;">}</div>
+            <br>
+            <div style="color: #00c6ff;">.btn-item-1 {</div>
+            <div>&nbsp;&nbsp;background: linear-gradient(135deg, #00c6ff, #0072ff);</div>
+            <div>&nbsp;&nbsp;transform: translateY(-100px) scale(1.1); <span style="color: #64748b;">// Child buttons
+                    expand</span></div>
+            <div style="color: #00c6ff;">}</div>
+        </div>
+
+        <div class="visual-panel">
+            <div class="gooey-container" id="gooey-container">
+                <button class="btn btn-item-1">📝</button>
+                <button class="btn btn-item-2">⚙️</button>
+                <button class="btn btn-item-3">🚀</button>
+                <button class="btn btn-main" onclick="toggleMenu()">
+                    <div class="icon-plus"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <svg style="width: 0; height: 0; position: absolute;">
+        <defs>
+            <filter id="gooey-filter">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                    result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
+
+    <script src="script.js"></script>
+</body>
+</html>

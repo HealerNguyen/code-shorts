@@ -1,0 +1,109 @@
+:root {
+    --bg: #050505;
+    --board-surface: #121212;
+    --key-top: #1e1e1e;
+    --key-side: #0a0a0a;
+    --key-text: #e0e0e0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
+
+/* ===== KEYBOARD BASE ===== */
+.razer-board {
+    position: relative;
+    background: var(--board-surface);
+    padding: 40px;
+    border-radius: 20px;
+    display: flex;
+    gap: 25px;
+    box-shadow:
+        0 0 0 2px #222,
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        inset 0 2px 5px rgba(255, 255, 255, 0.05);
+    /* 3D keyboard tilt */
+    transform: perspective(1000px) rotateX(15deg);
+    transform-style: preserve-3d;
+}
+
+/* ===== RGB CHROMA UNDERGLOW ===== */
+.chroma-underglow {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 10px;
+    background: linear-gradient(
+        90deg,
+        #ff0000, #ff7f00, #ffff00, #00ff00,
+        #0000ff, #4b0082, #9400d3, #ff0000
+    );
+    background-size: 300% 100%;
+    filter: blur(25px);
+    opacity: 0.6;
+    animation: chromaFlow 3s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes chromaFlow {
+    0%   { background-position: 100% 0; }
+    100% { background-position: 0 0; }
+}
+
+/* ===== 3D KEYCAP ===== */
+.keycap {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background: var(--key-top);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--key-text);
+    cursor: pointer;
+    z-index: 1;
+    user-select: none;
+    letter-spacing: 1px;
+
+    /* Physical 3D depth */
+    box-shadow:
+        inset -2px -2px 5px rgba(255, 255, 255, 0.05),
+        0 10px 0 var(--key-side),
+        0 15px 15px rgba(0, 0, 0, 0.7);
+
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.keycap-wide {
+    width: 140px;
+}
+
+/* ===== MECHANICAL PRESS ===== */
+.keycap:active,
+.keycap.pressed {
+    transform: translateY(8px);
+    box-shadow:
+        inset -2px -2px 5px rgba(255, 255, 255, 0.05),
+        0 2px 0 var(--key-side),
+        0 5px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* ===== LED BACKLIGHT ON PRESS ===== */
+#key-ctrl:active, #key-ctrl.pressed { color: #44ff88; text-shadow: 0 0 20px #44ff88; }
+#key-c:active,    #key-c.pressed    { color: #00ffff; text-shadow: 0 0 20px #00ffff; }
+#key-v:active,    #key-v.pressed    { color: #ff44ff; text-shadow: 0 0 20px #ff44ff; }

@@ -1,0 +1,23 @@
+/* The Gooey Secret: SVG Filter */
+.gooey-container {
+  filter: url('#gooey-filter');
+}
+
+/* Bouncy timing function */
+.btn {
+  transition: transform 0.6s
+    cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* On hover: children expand outward */
+.gooey-container:hover .btn-item-1 {
+  transform: translateY(-100px) scale(1.1);
+}
+
+/* Main button shrinks + icon rotates to X */
+.gooey-container:hover .btn-main {
+  transform: scale(0.85);
+}
+.gooey-container:hover .icon-plus {
+  transform: rotate(135deg);
+}

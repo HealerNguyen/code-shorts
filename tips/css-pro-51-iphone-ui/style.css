@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    --bg: #010409;
+    --code-bg: #0f172a;
+    --titanium-1: #e2e8f0;
+    --titanium-2: #475569;
+    --titanium-3: #1e293b;
+    --solana: #14F195;
+    --meteora: #9945FF;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: white;
+    font-family: 'Fira Code', monospace;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    width: 100%;
+    max-width: 1100px;
+    margin-top: 30px;
+}
+
+/* ===== OUTER STAGE ===== */
+.visual-panel {
+    background: radial-gradient(circle at center, #1e293b 0%, #010409 70%);
+    border-radius: 15px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: auto;
+    width: 100%;
+}
+
+/* ===== HARDWARE BUTTONS ===== */
+.hardware-btn {
+    position: absolute;
+    background: var(--titanium-2);
+    width: 3px;
+    border-radius: 2px 0 0 2px;
+}
+
+/* Positioned relative to the visual-panel center (phone is 280px wide) */
+.btn-action {
+    top: calc(50% - 290px + 120px);
+    left: calc(50% - 146px);
+    height: 25px;
+}
+
+.btn-vol-up {
+    top: calc(50% - 290px + 170px);
+    left: calc(50% - 146px);
+    height: 45px;
+}
+
+.btn-vol-down {
+    top: calc(50% - 290px + 230px);
+    left: calc(50% - 146px);
+    height: 45px;
+}
+
+.btn-power {
+    top: calc(50% - 290px + 180px);
+    left: calc(50% + 143px);
+    height: 65px;
+    border-radius: 0 2px 2px 0;
+}
+
+/* ===== IPHONE 18 TITANIUM FRAME ===== */
+.iphone-18 {
+    width: 280px;
+    height: 580px;
+    border-radius: 50px;
+    background: #000;
+    position: relative;
+    box-shadow:
+        0 0 0 3px var(--titanium-2),
+        0 0 0 5px var(--titanium-3),
+        inset 0 0 10px rgba(255, 255, 255, 0.2),
+        20px 30px 40px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== DYNAMIC ISLAND ===== */
+.micro-island {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 6px;
+    background: #000;
+    border-radius: 10px;
+    z-index: 100;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    overflow: hidden;
+}
+
+.micro-island:hover {
+    width: 120px;
+    height: 25px;
+    background: #111;
+}
+
+.micro-island::after {
+    content: 'REC';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8px;
+    color: #ef4444;
+    opacity: 0;
+    transition: 0.3s;
+    font-weight: bold;
+    font-family: 'Fira Code', monospace;
+}
+
+.micro-island:hover::after {
+    opacity: 1;
+}
+
+/* ===== APP SCREEN ===== */
+.app-screen {
+    width: 100%;
+    height: 100%;
+    background: #0f172a;
+    padding: 40px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-title {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/* ===== GLASSMORPHISM CARDS ===== */
+.crypto-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.crypto-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--solana), var(--meteora));
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+}
+
+.price-big {
+    font-size: 24px;
+    font-weight: 800;
+    animation: priceGlow 3s infinite alternate;
+}
+
+@keyframes priceGlow {
+    from {
+        color: white;
+    }
+
+    to {
+        color: var(--solana);
+        text-shadow: 0 0 20px rgba(20, 241, 149, 0.5);
+    }
+}
+
+.percent-up {
+    color: var(--solana);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ===== ANIMATED BAR CHART ===== */
+.grid-visualizer {
+    display: flex;
+    gap: 4px;
+    height: 60px;
+    align-items: flex-end;
+    margin-top: 15px;
+}
+
+.bar {
+    width: 100%;
+    background: var(--titanium-2);
+    border-radius: 4px;
+    animation: pulse 1.5s infinite alternate ease-in-out;
+}
+
+.bar:nth-child(1) {
+    height: 30%;
+    animation-delay: 0.1s;
+}
+
+.bar:nth-child(2) {
+    height: 50%;
+    animation-delay: 0.2s;
+    background: var(--solana);
+    box-shadow: 0 0 10px rgba(20, 241, 149, 0.4);
+}
+
+.bar:nth-child(3) {
+    height: 80%;
+    animation-delay: 0.3s;
+}
+
+.bar:nth-child(4) {
+    height: 40%;
+    animation-delay: 0.4s;
+}
+
+.bar:nth-child(5) {
+    height: 90%;
+    animation-delay: 0.5s;
+    background: var(--meteora);
+    box-shadow: 0 0 10px rgba(153, 69, 255, 0.4);
+}
+
+@keyframes pulse {
+    from {
+        opacity: 0.5;
+        transform: scaleY(1);
+    }
+
+    to {
+        opacity: 1;
+        transform: scaleY(1.1);
+    }
+}
+
+/* ===== TRADE BUTTON ===== */
+.btn-trade {
+    background: linear-gradient(135deg, var(--solana), var(--meteora));
+    color: #000;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: auto;
+    transition: 0.2s;
+    font-family: 'Inter', sans-serif;
+    animation: btnGlow 2s infinite alternate;
+}
+
+@keyframes btnGlow {
+    from {
+        box-shadow: 0 8px 20px rgba(20, 241, 149, 0.2);
+    }
+
+    to {
+        box-shadow: 0 12px 25px rgba(153, 69, 255, 0.5);
+    }
+}
+
+.btn-trade:active {
+    transform: scale(0.95);
+}
+
+.btn-trade:hover {
+    filter: brightness(1.1);
+}
