@@ -1,0 +1,103 @@
+:root {
+    --bg: #020617;
+    --cube-size: 250px;
+    --accent: #818cf8;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: var(--bg);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+/* 1. SÂN KHẤU 3D */
+.scene {
+    width: var(--cube-size);
+    height: var(--cube-size);
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotate-cube 20s infinite linear;
+    cursor: pointer;
+}
+
+/* 2. KHỐI LẬP PHƯƠNG */
+.cube {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-out;
+}
+
+.face {
+    position: absolute;
+    width: var(--cube-size);
+    height: var(--cube-size);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(129, 140, 248, 0.3);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--accent);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: inset 0 0 30px rgba(129, 140, 248, 0.1);
+}
+
+/* 3. ĐỊNH VỊ 6 MẶT TRONG KHÔNG GIAN */
+.front {
+    transform: rotateY(0deg) translateZ(calc(var(--cube-size) / 2));
+}
+
+.back {
+    transform: rotateY(180deg) translateZ(calc(var(--cube-size) / 2));
+}
+
+.right {
+    transform: rotateY(90deg) translateZ(calc(var(--cube-size) / 2));
+}
+
+.left {
+    transform: rotateY(-90deg) translateZ(calc(var(--cube-size) / 2));
+}
+
+.top {
+    transform: rotateX(90deg) translateZ(calc(var(--cube-size) / 2));
+}
+
+.bottom {
+    transform: rotateX(-90deg) translateZ(calc(var(--cube-size) / 2));
+}
+
+@keyframes rotate-cube {
+    from {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* Tương tác khi di chuột */
+.scene:hover {
+    animation-play-state: paused;
+}
+
+.scene:hover .cube {
+    transform: scale(1.1);
+}
