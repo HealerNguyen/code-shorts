@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@400;500&display=swap');
+
+:root {
+    --bg: #09090b;
+    --code-bg: #0f172a;
+    --input-bg: #18181b;
+    /* AI color palette (Blue - Purple - Pink) */
+    --ai-1: #3b82f6;
+    --ai-2: #8b5cf6;
+    --ai-3: #ec4899;
+}
+
+body {
+    margin: 0; background-color: var(--bg); color: white;
+    font-family: 'Inter', 'Fira Code', sans-serif; padding: 40px;
+    display: flex; flex-direction: column; align-items: center;
+    /* Minimal grid background */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.main-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; width: 100%; max-width: 1100px; margin-top: 30px;
+}
+
+.code-panel {
+    background: var(--code-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 25px; font-size: 13px; line-height: 1.6;
+    font-family: 'Fira Code', monospace;
+}
+
+.visual-panel {
+    background-color: var(--bg);
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border-radius: 15px; height: 420px;
+    display: flex; justify-content: center; align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; position: relative;
+}
+
+/* Houdini: Register --angle as an animatable <angle> type */
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+/* Input wrapper */
+.ai-wrapper {
+    position: relative; width: 400px; height: 55px;
+    border-radius: 30px;
+    display: flex; justify-content: center; align-items: center;
+}
+
+/* Glow border and aura layers */
+.ai-wrapper::before,
+.ai-wrapper::after {
+    content: ''; position: absolute;
+    /* Overflow by 2px to create the border */
+    inset: -2px; border-radius: 32px;
+    /* Conic gradient uses --angle variable to rotate */
+    background: conic-gradient(from var(--angle),
+            transparent 10%,
+            var(--ai-1) 30%,
+            var(--ai-2) 50%,
+            var(--ai-3) 70%,
+            transparent 90%);
+    /* Hidden at rest */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* ::after is blurred for the aura glow */
+.ai-wrapper::after {
+    filter: blur(15px); z-index: 1;
+}
+
+/* ::before is sharp for the glowing border */
+.ai-wrapper::before {
+    z-index: 2;
+}
+
+/* The actual input */
+.ai-input {
+    position: absolute;
+    /* Inset 2px, leaving room for ::before border to show */
+    inset: 2px;
+    background: var(--input-bg);
+    border-radius: 28px; border: none; outline: none;
+    color: white; font-size: 15px; padding: 0 22px;
+    z-index: 10;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: background 0.4s ease;
+}
+
+.ai-input::placeholder {
+    color: #52525b; letter-spacing: 1px;
+}
+
+/* Focus state: activate the aura */
+.ai-wrapper:focus-within::before,
+.ai-wrapper:focus-within::after {
+    opacity: 1; /* Show the aura */
+    animation: spin 3s linear infinite;
+}
+
+.ai-wrapper:focus-within .ai-input {
+    background: #09090b; /* Deeper black on focus */
+}
+
+@keyframes spin {
+    from { --angle: 0deg; }
+    to   { --angle: 360deg; }
+}

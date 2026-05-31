@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Aura Input Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2 style="font-weight: 200; letter-spacing: 5px;">AI AURA INPUT</h2>
+
+    <div class="main-layout">
+        <div class="code-panel">
+            <div style="color: #64748b;">// Houdini: Register --angle as animatable</div>
+            <div style="color: #3b82f6;">@property --angle {</div>
+            <div>&nbsp;&nbsp;syntax: <span style="color: #fbbf24;">'&lt;angle&gt;'</span>;</div>
+            <div>&nbsp;&nbsp;initial-value: 0deg;</div>
+            <div>&nbsp;&nbsp;inherits: false;</div>
+            <div style="color: #3b82f6;">}</div>
+            <br>
+            <div style="color: #64748b;">// Rotating conic-gradient border</div>
+            <div style="color: #8b5cf6;">.ai-wrapper::before {</div>
+            <div>&nbsp;&nbsp;background: conic-gradient(</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;from var(--angle),</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;transparent, <span style="color: #3b82f6;">blue</span>,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #8b5cf6;">purple</span>, <span style="color: #ec4899;">pink</span>, transparent);</div>
+            <div style="color: #8b5cf6;">}</div>
+            <br>
+            <div style="color: #64748b;">// Focus activates the spin</div>
+            <div style="color: #ec4899;">.ai-wrapper:focus-within::before {</div>
+            <div>&nbsp;&nbsp;opacity: 1;</div>
+            <div>&nbsp;&nbsp;animation: spin 3s infinite;</div>
+            <div style="color: #ec4899;">}</div>
+        </div>
+
+        <div class="visual-panel">
+            <div class="ai-wrapper">
+                <input type="text" class="ai-input" placeholder="Ask AI to generate UI...">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

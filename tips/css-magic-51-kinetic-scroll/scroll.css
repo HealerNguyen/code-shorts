@@ -1,0 +1,17 @@
+/* Link animation to scrollbar — no JS! */
+.kinetic-text {
+  font-size: 10vw;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+  animation: scroll-morph linear;
+  animation-timeline: scroll();
+}
+
+@keyframes scroll-morph {
+  0%   { font-weight: 100; filter: blur(10px); }
+  30%  { font-weight: 500; filter: blur(0); }
+  60%  { font-weight: 900; color: #fff;
+         text-shadow: -10px 0 20px cyan,
+                       10px 0 20px magenta; }
+  100% { letter-spacing: 15vw; opacity: 0; }
+}

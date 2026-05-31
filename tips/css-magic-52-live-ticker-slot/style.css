@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700;900&display=swap');
+
+:root {
+    --bg: #09090b;
+    --code-bg: #0f172a;
+    --surface: #18181b;
+    --neon-green: #10b981;
+    --neon-green-glow: rgba(16, 185, 129, 0.4);
+    --digit-height: 80px; /* Fixed height per digit */
+}
+
+body {
+    margin: 0; background-color: var(--bg); color: white;
+    font-family: 'Fira Code', monospace; padding: 40px;
+    display: flex; flex-direction: column; align-items: center;
+    /* Trading dashboard grid background */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.main-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; width: 100%; max-width: 1100px; margin-top: 30px;
+}
+
+.code-panel {
+    background: var(--code-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 25px; font-size: 13px; line-height: 1.6;
+}
+
+.visual-panel {
+    background-color: var(--bg);
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    border-radius: 15px; height: 420px;
+    display: flex; justify-content: center; align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; position: relative;
+}
+
+/* Dashboard widget card */
+.ticker-card {
+    background: var(--surface);
+    padding: 25px 40px; border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    display: flex; flex-direction: column; align-items: center;
+}
+
+.label {
+    color: #a1a1aa; font-size: 12px;
+    letter-spacing: 2px; margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+/* Slot machine frame */
+.slot-machine {
+    display: flex; align-items: center;
+    font-size: 60px; font-weight: 900;
+    color: var(--neon-green);
+    text-shadow: 0 0 20px var(--neon-green-glow);
+    /* Convex glass highlight */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 40%, transparent 60%, rgba(0, 0, 0, 0.5) 100%);
+    padding: 0 8px; border-radius: 12px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.currency-symbol { margin-right: 8px; }
+
+/* Single digit display window (clipped) */
+.digit-window {
+    height: var(--digit-height); width: 42px;
+    overflow: hidden; /* Hides the digit carousel overflow */
+    position: relative;
+    display: flex; justify-content: center;
+}
+
+/* Digit carousel (0 to 9 stacked) */
+.digit-column {
+    display: flex; flex-direction: column;
+    /* Smooth slide transition */
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.number {
+    height: var(--digit-height);
+    display: flex; justify-content: center; align-items: center;
+}
+
+.decimal-dot { margin: 0 4px; }

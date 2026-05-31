@@ -1,0 +1,121 @@
+/* Import Variable Font (supports smooth weight transitions) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+    --bg: #050505;
+    --code-bg: #0f172a;
+    --primary: #fff;
+    --accent-1: #00f3ff; /* Cyan */
+    --accent-2: #ff00ff; /* Magenta */
+}
+
+body {
+    margin: 0; background-color: var(--bg); color: white;
+    font-family: 'Inter', sans-serif;
+    /* Extra-tall page to enable scrolling */
+    height: 400vh;
+    overflow-x: hidden;
+    /* Grid background creates speed feel when scrolling */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 100px;
+}
+
+/* Fixed container keeps text centered on viewport */
+.fixed-wrapper {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    pointer-events: none;
+}
+
+/* The kinetic text */
+.kinetic-text {
+    position: absolute;
+    font-size: 10vw; text-transform: uppercase;
+    text-align: center; white-space: nowrap;
+    color: transparent;
+    /* Outline text */
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+
+    /* THE MAGIC: Link animation directly to scrollbar */
+    animation: scroll-morph linear;
+    animation-timeline: scroll();
+}
+
+/* Scroll-driven animation system based on % scrolled */
+@keyframes scroll-morph {
+    /* 0% Scroll (top): Thin, blurry, small */
+    0% {
+        font-weight: 100;
+        letter-spacing: -2vw;
+        transform: scale(0.5) translateY(-50px);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+        filter: blur(10px);
+    }
+
+    /* 30% Scroll: Clear, getting bolder */
+    30% {
+        font-weight: 500;
+        letter-spacing: 0vw;
+        transform: scale(1) translateY(0);
+        -webkit-text-stroke: 2px var(--primary);
+        filter: blur(0px);
+    }
+
+    /* 60% Scroll: Ultra bold (Black), fills screen, glowing */
+    60% {
+        font-weight: 900;
+        letter-spacing: 3vw;
+        transform: scale(1.5);
+        -webkit-text-stroke: 0px transparent;
+        color: var(--primary);
+        text-shadow:
+            -10px 0 20px var(--accent-1),
+            10px 0 20px var(--accent-2);
+    }
+
+    /* 100% Scroll (bottom): Text tears apart and vanishes */
+    100% {
+        font-weight: 900;
+        letter-spacing: 15vw; /* Maximum stretch */
+        transform: scale(3) translateY(100px);
+        color: transparent;
+        -webkit-text-stroke: 2px var(--accent-1);
+        opacity: 0;
+    }
+}
+
+/* Subtitle text runs in reverse */
+.sub-text {
+    position: absolute; bottom: 20%;
+    font-size: 1rem; color: #888;
+    letter-spacing: 5px;
+    animation: sub-scroll linear;
+    animation-timeline: scroll();
+}
+
+@keyframes sub-scroll {
+    0%   { transform: translateY(50px); opacity: 0; }
+    50%  { transform: translateY(0); opacity: 1; color: var(--accent-1); }
+    100% { transform: translateY(-150px); opacity: 0; letter-spacing: 20px; }
+}
+
+/* Layout for index.html (not used in demo) */
+.main-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; width: 100%; max-width: 1100px; margin-top: 30px;
+}
+
+.code-panel {
+    background: var(--code-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 25px; font-size: 13px; line-height: 1.6;
+    font-family: 'Fira Code', monospace;
+}
+
+.visual-panel {
+    background-color: var(--bg);
+    border-radius: 15px; height: 420px;
+    display: flex; justify-content: center; align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; position: relative;
+}

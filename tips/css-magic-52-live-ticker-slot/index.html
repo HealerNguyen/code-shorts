@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Ticker Slot Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2 style="font-weight: 200; letter-spacing: 5px;">LIVE TICKER SLOT</h2>
+
+    <div class="main-layout">
+        <div class="code-panel">
+            <div style="color: #64748b;">// Single digit display (clipped)</div>
+            <div style="color: #10b981;">.digit-window {</div>
+            <div>&nbsp;&nbsp;height: 80px;</div>
+            <div>&nbsp;&nbsp;overflow: <span style="color: #fbbf24;">hidden</span>; <span style="color: #64748b;">// The magic clip!</span></div>
+            <div style="color: #10b981;">}</div>
+            <br>
+            <div style="color: #64748b;">// Slide column to target digit</div>
+            <div style="color: #38bdf8;">function updateTicker(value) {</div>
+            <div>&nbsp;&nbsp;const digits = value.toFixed(2)</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;.padStart(8, '0')</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;.split('').filter(c =&gt; c !== '.');</div>
+            <br>
+            <div>&nbsp;&nbsp;columns.forEach((col, i) =&gt; {</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;const n = parseInt(digits[i]);</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;col.style.transform =</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`translateY(<span style="color: #fbbf24;">${-(n * 80)}</span>px)`;</div>
+            <div>&nbsp;&nbsp;});</div>
+            <div style="color: #38bdf8;">}</div>
+        </div>
+
+        <div class="visual-panel">
+            <div class="ticker-card">
+                <div class="label">SOL/USDT PNL</div>
+                <div class="slot-machine" id="ticker">
+                    <span class="currency-symbol">$</span>
+                    <div class="digit-window"><div class="digit-column" id="col-10000"></div></div>
+                    <div class="digit-window"><div class="digit-column" id="col-1000"></div></div>
+                    <div class="digit-window"><div class="digit-column" id="col-100"></div></div>
+                    <div class="digit-window"><div class="digit-column" id="col-10"></div></div>
+                    <div class="digit-window"><div class="digit-column" id="col-1"></div></div>
+                    <span class="decimal-dot">.</span>
+                    <div class="digit-window"><div class="digit-column" id="col-01"></div></div>
+                    <div class="digit-window"><div class="digit-column" id="col-001"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

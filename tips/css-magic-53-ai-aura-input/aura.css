@@ -1,0 +1,25 @@
+/* Houdini: Register --angle as animatable */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Rotating conic-gradient border */
+.ai-wrapper::before {
+  background: conic-gradient(from var(--angle),
+    transparent 10%, #3b82f6 30%,
+    #8b5cf6 50%, #ec4899 70%,
+    transparent 90%);
+  opacity: 0; /* Hidden at rest */
+}
+
+/* Focus activates the spin */
+.ai-wrapper:focus-within::before {
+  opacity: 1;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  to { --angle: 360deg; }
+}
