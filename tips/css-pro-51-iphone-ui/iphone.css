@@ -1,0 +1,23 @@
+/* 📱 iPhone 18 Titanium Frame — Pure CSS */
+.iphone-18 {
+  width: 320px;
+  height: 650px;
+  border-radius: 55px;
+  background: #000;
+  box-shadow:
+    0 0 0 4px #475569,   /* Titanium ring */
+    0 0 0 7px #1e293b,   /* Inner edge */
+    inset 0 0 12px rgba(255,255,255,0.2); /* Screen glow */
+}
+
+/* 💡 Dynamic Island */
+.micro-island {
+  width: 60px;
+  height: 7px;
+  background: #000;
+  border-radius: 10px;
+  transition: 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.micro-island:hover {
+  width: 140px; height: 30px;
+}

@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    background: #020617;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+canvas {
+    cursor: move;
+}
+
+.overlay {
+    position: absolute;
+    pointer-events: none;
+    color: rgba(255, 255, 255, 0.1);
+    font-size: 10vw;
+    font-weight: 900;
+    z-index: -1;
+}

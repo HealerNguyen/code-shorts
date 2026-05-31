@@ -1,0 +1,81 @@
+:root {
+    --bg: #050505;
+    --card-width: 200px;
+    --card-height: 300px;
+    --quantity: 8;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    perspective: 1500px;
+}
+
+/* 1. 3D stage */
+.gallery-container {
+    position: relative;
+    width: var(--card-width);
+    height: var(--card-height);
+    transform-style: preserve-3d;
+    animation: auto-rotate 30s linear infinite;
+}
+
+/* 2. Cards */
+.card {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.5);
+    transform:
+        rotateY(calc((var(--index) - 1) * (360deg / var(--quantity)))) translateZ(350px);
+}
+
+/* Pause on hover */
+.gallery-container:hover {
+    animation-play-state: paused;
+    cursor: pointer;
+}
+
+@keyframes auto-rotate {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+/* 3. Reflection */
+.card::after {
+    content: '';
+    position: absolute;
+    bottom: -110%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+    transform: scaleY(-1);
+    opacity: 0.3;
+    filter: blur(5px);
+}

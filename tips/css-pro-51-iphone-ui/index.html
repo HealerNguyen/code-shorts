@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone 18 CSS Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="main-layout">
+        <div class="visual-panel">
+            <!-- HARDWARE BUTTONS -->
+            <div class="hardware-btn btn-action"></div>
+            <div class="hardware-btn btn-vol-up"></div>
+            <div class="hardware-btn btn-vol-down"></div>
+            <div class="hardware-btn btn-power"></div>
+
+            <!-- PHONE FRAME -->
+            <div class="iphone-18">
+                <div class="micro-island" id="island"></div>
+
+                <!-- APP CONTENT -->
+                <div class="app-screen">
+                    <div class="app-header">
+                        <span class="app-title">Spot Grid Bot</span>
+                        <span style="font-size: 20px;">⚙️</span>
+                    </div>
+
+                    <div class="crypto-card">
+                        <div style="color: #94a3b8; font-size: 12px;">Pair</div>
+                        <div style="font-weight: bold; margin-top: 2px;">SOL / USDC</div>
+                        <div class="price-row">
+                            <div class="price-big">$142.65</div>
+                            <div class="percent-up">+5.24% 📈</div>
+                        </div>
+                    </div>
+
+                    <div class="crypto-card">
+                        <div style="color: #94a3b8; font-size: 12px;">Active Grid Orders</div>
+                        <div class="grid-visualizer">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn-trade" id="btn-trade">Launch Meteora Strategy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
