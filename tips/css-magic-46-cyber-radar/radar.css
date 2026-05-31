@@ -1,0 +1,24 @@
+/* Sweeper: Conic Gradient creates the beam */
+.sweeper {
+  background: conic-gradient(from 0deg,
+    transparent 75%,
+    rgba(16, 185, 129, 0.1) 90%,
+    var(--radar-green) 100%);
+  animation: radar-spin 4s linear infinite;
+}
+
+/* Grid: Crosshairs + Concentric Rings */
+.radar-grid {
+  background-image:
+    linear-gradient(90deg, ... var(--radar-green) ...),
+    repeating-radial-gradient(
+      transparent 0, transparent 40px,
+      rgba(16,185,129,0.3) 41px
+    );
+}
+
+/* Blips sync with sweep rotation */
+.blip-1 {
+  animation: blip-fade 4s infinite;
+  animation-delay: 0.5s;
+}

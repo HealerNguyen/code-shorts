@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700;900&display=swap');
+
+:root {
+    --bg: #050505;
+    --code-bg: #0f172a;
+    --glitch-red: #ff003c;
+    --glitch-cyan: #00f3ff;
+    --text-color: #f8f8f2;
+}
+
+body {
+    margin: 0; background-color: var(--bg); color: white;
+    font-family: 'Fira Code', monospace; padding: 40px;
+    display: flex; flex-direction: column; align-items: center;
+    /* CRT scanline background */
+    background-image: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 243, 255, 0.03) 2px,
+            rgba(0, 243, 255, 0.03) 4px);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.main-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; width: 100%; max-width: 1100px; margin-top: 30px;
+}
+
+.code-panel {
+    background: var(--code-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 25px; font-size: 13px; line-height: 1.6;
+}
+
+.visual-panel {
+    background-color: var(--bg);
+    background-image: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 243, 255, 0.03) 2px,
+            rgba(0, 243, 255, 0.03) 4px);
+    border-radius: 15px; height: 420px;
+    display: flex; justify-content: center; align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; position: relative;
+}
+
+/* Glitch text wrapper */
+.glitch-wrapper {
+    position: relative;
+    font-size: 60px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 5px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* attr(data-text) duplicates text automatically — no extra HTML needed */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--bg);
+}
+
+/* Red layer: shifted left */
+.glitch-text::before {
+    left: 3px;
+    text-shadow: -2px 0 var(--glitch-red);
+    /* clip-path will be animated to continuously cut slices */
+    clip-path: inset(0 0 0 0);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    z-index: -1;
+}
+
+/* Cyan layer: shifted right */
+.glitch-text::after {
+    left: -3px;
+    text-shadow: -2px 0 var(--glitch-cyan);
+    clip-path: inset(0 0 0 0);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    z-index: -2;
+}
+
+/* The scissors: inset() crops horizontal text slices */
+@keyframes glitch-anim-1 {
+    0%   { clip-path: inset(20% 0 80% 0); }
+    20%  { clip-path: inset(60% 0 10% 0); transform: translateX(-2px); }
+    40%  { clip-path: inset(40% 0 50% 0); }
+    60%  { clip-path: inset(80% 0 5% 0); transform: translateX(2px); }
+    80%  { clip-path: inset(10% 0 70% 0); }
+    100% { clip-path: inset(30% 0 50% 0); transform: translateX(-2px); }
+}
+
+@keyframes glitch-anim-2 {
+    0%   { clip-path: inset(10% 0 60% 0); }
+    20%  { clip-path: inset(80% 0 5% 0); transform: translateX(2px); }
+    40%  { clip-path: inset(30% 0 20% 0); }
+    60%  { clip-path: inset(70% 0 10% 0); transform: translateX(-2px); }
+    80%  { clip-path: inset(5% 0 80% 0); }
+    100% { clip-path: inset(50% 0 30% 0); transform: translateX(2px); }
+}
+
+/* Hover reveal: hidden text slides out */
+.reveal-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--bg);
+    color: var(--glitch-cyan);
+    overflow: hidden;
+    /* Initially hidden at width 0% */
+    width: 0%; white-space: nowrap;
+    transition: width 0.5s cubic-bezier(0.8, 0, 0.2, 1);
+    z-index: 10;
+    border-right: 4px solid var(--glitch-cyan);
+    filter: drop-shadow(0 0 10px var(--glitch-cyan));
+}
+
+.glitch-wrapper:hover .reveal-overlay {
+    width: 100%; /* Smooth slide out on hover */
+}
+
+/* Disable glitch animation during reveal */
+.glitch-wrapper:hover .glitch-text::before,
+.glitch-wrapper:hover .glitch-text::after {
+    animation: none; opacity: 0;
+}

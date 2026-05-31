@@ -1,0 +1,23 @@
+/* RGB Ring: Conic Gradient + Mask */
+.rgb-ring {
+  background: conic-gradient(
+    #ff0000, #ff7f00, #ffff00, #00ff00,
+    #00ffff, #0000ff, #8b00ff, #ff0000
+  );
+  mask-image: radial-gradient(
+    transparent 62%, black 63%
+  );
+  animation: spin 3s linear infinite;
+}
+
+/* Blade positioning with CSS variable */
+.blade {
+  transform: rotate(calc(var(--i) * 51.42deg));
+  border-radius: 100% 0% 100% 0%;
+}
+
+/* Hover: Max RPM + Motion Blur */
+.fan-frame:hover .rotor {
+  animation: spin 0.15s linear infinite;
+  filter: blur(1.5px);
+}

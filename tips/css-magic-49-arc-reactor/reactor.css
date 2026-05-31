@@ -1,0 +1,19 @@
+/* Tick ring: repeating-conic-gradient */
+.ring-ticks {
+  background: repeating-conic-gradient(
+    var(--reactor-color) 0deg 2deg,
+    transparent 2deg 10deg
+  );
+  mask-image: radial-gradient(
+    transparent 65%, black 66%
+  );
+  animation: spin var(--spin-speed-1) infinite;
+}
+
+/* Meltdown: Override 4 CSS vars! */
+.reactor-housing:hover {
+  --reactor-color: var(--danger-red);
+  --reactor-glow: var(--danger-red-glow);
+  --spin-speed-1: 1s;   /* 15x faster */
+  --spin-speed-2: 1.5s;
+}

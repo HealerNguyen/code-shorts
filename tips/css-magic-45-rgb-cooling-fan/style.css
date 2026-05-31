@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+:root {
+    --bg: #010409;
+    --code-bg: #0f172a;
+    --case-bg: #0a0a0a;
+    --frame-color: #1a1a1a;
+    --blade-color-1: #2a2a2a;
+    --blade-color-2: #111111;
+}
+
+body {
+    margin: 0; background: var(--bg); color: white;
+    font-family: 'Fira Code', monospace; padding: 40px;
+    display: flex; flex-direction: column; align-items: center;
+}
+
+.main-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; width: 100%; max-width: 1100px; margin-top: 30px;
+}
+
+.code-panel {
+    background: var(--code-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 25px; font-size: 13px; line-height: 1.6;
+}
+
+.visual-panel {
+    /* Simulating a PC case ventilation grid */
+    background-color: var(--case-bg);
+    background-image: radial-gradient(#222 2px, transparent 2px);
+    background-size: 12px 12px;
+    border-radius: 15px; height: 400px;
+    display: flex; justify-content: center; align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; position: relative;
+}
+
+/* Fan Frame */
+.fan-frame {
+    position: relative; width: 280px; height: 280px;
+    background: linear-gradient(135deg, #222, #0d0d0d);
+    border-radius: 25px;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.9),
+        inset 0 2px 5px rgba(255, 255, 255, 0.1),
+        inset 0 -5px 15px rgba(0, 0, 0, 0.8);
+    display: flex; justify-content: center; align-items: center;
+    /* Subtle 3D perspective */
+    transform: perspective(800px) rotateX(10deg);
+    transform-style: preserve-3d;
+}
+
+/* Screws at 4 corners */
+.screw {
+    position: absolute; width: 14px; height: 14px;
+    background: radial-gradient(circle, #666 30%, #222 80%);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8), 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.screw::after {
+    content: ''; position: absolute;
+    top: 50%; left: 50%;
+    width: 7px; height: 2px; background: #111;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.s-tl { top: 12px; left: 12px; }
+.s-tr { top: 12px; right: 12px; transform: rotate(30deg); }
+.s-bl { bottom: 12px; left: 12px; transform: rotate(70deg); }
+.s-br { bottom: 12px; right: 12px; transform: rotate(110deg); }
+
+/* Central vent hole (recessed) */
+.vent-hole {
+    position: absolute; width: 245px; height: 245px;
+    border-radius: 50%; background: #050505;
+    box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.9);
+}
+
+/* RGB LED Ring (Conic Gradient + Mask) */
+.rgb-ring {
+    position: absolute; width: 235px; height: 235px;
+    border-radius: 50%;
+    background: conic-gradient(#ff0000, #ff7f00, #ffff00, #00ff00,
+            #00ffff, #0000ff, #8b00ff, #ff0000);
+    /* Hollow center to create a ring */
+    mask-image: radial-gradient(transparent 62%, black 63%);
+    -webkit-mask-image: radial-gradient(transparent 62%, black 63%);
+    /* Glow effect */
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+    animation: spin 3s linear infinite;
+    z-index: 2;
+}
+
+/* Rotor assembly */
+.rotor {
+    position: absolute; width: 220px; height: 220px;
+    border-radius: 50%; z-index: 3;
+    /* Default spin speed (idle) */
+    animation: spin 3s linear infinite;
+    transition: filter 0.3s ease;
+}
+
+/* Aerodynamic fan blades */
+.blade {
+    position: absolute; bottom: 50%;
+    /* Anchor at center */
+    left: calc(50% - 18px);
+    width: 36px; height: 95px;
+    background: linear-gradient(135deg, var(--blade-color-1), var(--blade-color-2));
+    /* Leaf-shaped blade via asymmetric border-radius */
+    border-radius: 100% 0% 100% 0%;
+    transform-origin: bottom center;
+    /* Position each blade using CSS variable --i */
+    transform: rotate(calc(var(--i) * 51.42deg)) translateY(-13px);
+    box-shadow:
+        inset 2px 2px 5px rgba(255, 255, 255, 0.1),
+        5px 5px 15px rgba(0, 0, 0, 0.8);
+}
+
+/* Motor hub at center */
+.hub {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, #333 0%, #111 80%);
+    border-radius: 50%;
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.8),
+        inset 0 2px 5px rgba(255, 255, 255, 0.2);
+    display: flex; justify-content: center; align-items: center;
+    color: #fff; font-weight: 900; font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Metallic hub ring */
+.hub::before {
+    content: ''; position: absolute;
+    width: 48px; height: 48px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+/* Hover: Max RPM! */
+.fan-frame:hover .rotor {
+    animation: spin 0.15s linear infinite;
+    /* Motion blur simulates high speed */
+    filter: blur(1.5px);
+}
+
+.fan-frame:hover .rgb-ring {
+    animation: spin 0.5s linear infinite;
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

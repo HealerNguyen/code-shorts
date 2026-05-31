@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Glitch Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2 style="font-weight: 200; letter-spacing: 5px;">CYBER GLITCH</h2>
+
+    <div class="main-layout">
+        <div class="code-panel">
+            <div style="color: #64748b;">// attr() duplicates text — no extra HTML</div>
+            <div style="color: #ff003c;">.glitch-text::before,</div>
+            <div style="color: #ff003c;">.glitch-text::after {</div>
+            <div>&nbsp;&nbsp;content: <span style="color: #fbbf24;">attr(data-text)</span>;</div>
+            <div>&nbsp;&nbsp;position: absolute;</div>
+            <div>&nbsp;&nbsp;background: var(--bg);</div>
+            <div style="color: #ff003c;">}</div>
+            <br>
+            <div style="color: #64748b;">// Red layer: shifted + clipped</div>
+            <div style="color: #00f3ff;">.glitch-text::before {</div>
+            <div>&nbsp;&nbsp;left: 3px;</div>
+            <div>&nbsp;&nbsp;text-shadow: -2px 0 var(--glitch-red);</div>
+            <div>&nbsp;&nbsp;clip-path: inset(0 0 0 0); <span style="color: #64748b;">// Animated!</span></div>
+            <div style="color: #00f3ff;">}</div>
+            <br>
+            <div style="color: #64748b;">// Hover: Reveal hidden message</div>
+            <div style="color: #a855f7;">.glitch-wrapper:hover .reveal-overlay {</div>
+            <div>&nbsp;&nbsp;width: <span style="color: #fbbf24;">100%</span>; <span style="color: #64748b;">// Slides open!</span></div>
+            <div style="color: #a855f7;">}</div>
+        </div>
+
+        <div class="visual-panel">
+            <div class="glitch-wrapper">
+                <div class="glitch-text" data-text="SYSTEM FAILURE">SYSTEM FAILURE</div>
+                <div class="reveal-overlay">ACCESS GRANTED</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

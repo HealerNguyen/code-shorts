@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Radar Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2 style="font-weight: 200; letter-spacing: 5px;">CYBER RADAR</h2>
+
+    <div class="main-layout">
+        <div class="code-panel">
+            <div style="color: #64748b;">// Sweeper: Conic Gradient creates the beam</div>
+            <div style="color: #10b981;">.sweeper {</div>
+            <div>&nbsp;&nbsp;background: conic-gradient(from 0deg,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;transparent 75%,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;rgba(16,185,129,0.1) 90%,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;var(--radar-green) 100%); <span style="color: #64748b;">// The cone</span></div>
+            <div style="color: #10b981;">}</div>
+            <br>
+            <div style="color: #64748b;">// Concentric rings via repeating gradient</div>
+            <div style="color: #38bdf8;">.radar-grid {</div>
+            <div>&nbsp;&nbsp;background: repeating-radial-gradient(</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;transparent 0, transparent 40px,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;rgba(16,185,129,0.3) 41px); <span style="color: #64748b;">// Rings!</span></div>
+            <div style="color: #38bdf8;">}</div>
+            <br>
+            <div style="color: #64748b;">// Click shockwave via forced reflow</div>
+            <div style="color: #fbbf24;">wave.classList.remove('active');</div>
+            <div style="color: #fbbf24;">void wave.offsetWidth; <span style="color: #64748b;">// Reset trick</span></div>
+            <div style="color: #fbbf24;">wave.classList.add('active');</div>
+        </div>
+
+        <div class="visual-panel">
+            <div class="radar-bezel" id="radar">
+                <div class="radar-grid"></div>
+
+                <div class="blip blip-1"></div>
+                <div class="blip blip-2"></div>
+                <div class="blip blip-3"></div>
+
+                <div class="sweeper"></div>
+
+                <div class="shockwave" id="wave"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

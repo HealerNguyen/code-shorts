@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+
+:root {
+    --bg: #050505;
+    --code-bg: #0f172a;
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --energy-color: #14F195;
+    --energy-glow: rgba(20, 241, 149, 0.6);
+}
+
+body {
+    margin: 0; background-color: var(--bg); color: white;
+    font-family: 'Fira Code', monospace; padding: 40px;
+    display: flex; flex-direction: column; align-items: center;
+    /* Industrial stripe background */
+    background-image: repeating-linear-gradient(45deg,
+            #080808 0, #080808 2px,
+            transparent 2px, transparent 8px);
+    overflow: hidden;
+}
+
+.main-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; width: 100%; max-width: 1100px; margin-top: 30px;
+}
+
+.code-panel {
+    background: var(--code-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 25px; font-size: 13px; line-height: 1.6;
+}
+
+.visual-panel {
+    background-color: var(--bg);
+    background-image: repeating-linear-gradient(45deg,
+            #080808 0, #080808 2px,
+            transparent 2px, transparent 8px);
+    border-radius: 15px; height: 420px;
+    display: flex; justify-content: center; align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; position: relative;
+}
+
+/* Glass tube (battery body) */
+.battery-container {
+    position: relative; width: 140px; height: 280px;
+    background: var(--glass);
+    border: 2px solid var(--glass-border);
+    border-radius: 20px;
+    /* Convex glass effect */
+    box-shadow:
+        inset 10px 0 20px rgba(255, 255, 255, 0.05),
+        inset -10px 0 20px rgba(0, 0, 0, 0.8),
+        0 0 50px rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+}
+
+/* Battery positive terminal (head) */
+.battery-head {
+    position: absolute; top: -20px; left: 50%;
+    transform: translateX(-50%);
+    width: 50px; height: 20px;
+    background: #222;
+    border-radius: 10px 10px 0 0;
+    border: 2px solid var(--glass-border);
+    border-bottom: none;
+    box-shadow: inset 0 5px 10px rgba(255, 255, 255, 0.1);
+    z-index: 10;
+}
+
+/* Energy liquid */
+.liquid {
+    position: relative; width: 100%; height: 0%;
+    background: var(--energy-color);
+    box-shadow: 0 0 40px var(--energy-glow);
+    animation: charge-up 8s ease-in-out infinite alternate;
+}
+
+@keyframes charge-up {
+    0%   { height: 10%; filter: hue-rotate(40deg); }
+    100% { height: 90%; filter: hue-rotate(0deg); }
+}
+
+/* Wave trick: rotating rounded squares on top of liquid */
+.liquid::before,
+.liquid::after {
+    content: ''; position: absolute;
+    /* Square twice the container width, placed on water surface */
+    width: 300px; height: 300px;
+    background: var(--bg); /* Hidden by matching bg color */
+    bottom: 100%; /* Bottom edge touches water surface */
+    left: 50%; transform: translateX(-50%);
+}
+
+/* Wave layer 1 (slow, high undulation) */
+.liquid::before {
+    border-radius: 40%;
+    background: rgba(5, 5, 5, 1); /* Opaque bg color */
+    animation: spin-wave 6s linear infinite;
+    z-index: 2;
+}
+
+/* Wave layer 2 (fast, semi-transparent for 3D foam effect) */
+.liquid::after {
+    border-radius: 42%;
+    background: rgba(5, 5, 5, 0.6); /* Semi-transparent */
+    animation: spin-wave 4s linear infinite;
+    z-index: 1;
+}
+
+@keyframes spin-wave {
+    0%   { transform: translateX(-50%) rotate(0deg); }
+    100% { transform: translateX(-50%) rotate(360deg); }
+}
+
+/* Floating bubbles */
+.bubbles {
+    position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 3; pointer-events: none;
+}
+
+.bubble {
+    position: absolute; bottom: -10px;
+    width: 6px; height: 6px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    animation: float-up infinite ease-in;
+}
+
+.b1 { left: 20%; animation-duration: 2s; animation-delay: 0.5s; }
+.b2 { left: 50%; animation-duration: 3s; width: 10px; height: 10px; }
+.b3 { left: 80%; animation-duration: 1.5s; animation-delay: 1s; }
+
+@keyframes float-up {
+    0%   { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-300px) scale(0); opacity: 0; }
+}
+
+/* Glass glare along the tube body */
+.glass-glare {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, transparent 20%, transparent 80%, rgba(0, 0, 0, 0.5) 100%);
+    z-index: 5; pointer-events: none;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hologram Glass Card Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2 style="font-weight: 200; letter-spacing: 5px;">HOLOGRAM GLASS CARD</h2>
+
+    <div class="main-layout">
+        <div class="code-panel">
+            <div style="color: #64748b;">// 3D Tilt: Rotation from mouse position</div>
+            <div style="color: #00f3ff;">const rotateX = ((y - centerY) / centerY) * -20;</div>
+            <div style="color: #00f3ff;">const rotateY = ((x - centerX) / centerX) * 20;</div>
+            <div>wrapper.style.transform =</div>
+            <div>&nbsp;&nbsp;`rotateX(<span style="color: #fbbf24;">${rotateX}</span>deg) rotateY(<span style="color: #fbbf24;">${rotateY}</span>deg)`;</div>
+            <br>
+            <div style="color: #64748b;">// Hologram Glare: Follows cursor</div>
+            <div style="color: #ff00ff;">.glare {</div>
+            <div>&nbsp;&nbsp;background: linear-gradient(135deg,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;transparent 30%,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;rgba(255,255,255,0.4) 40%,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;rgba(0,243,255,0.4) 45%,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;rgba(255,0,255,0.4) 50%);</div>
+            <div>&nbsp;&nbsp;mix-blend-mode: overlay; <span style="color: #64748b;">// Rainbow!</span></div>
+            <div style="color: #ff00ff;">}</div>
+            <br>
+            <div style="color: #64748b;">// Glass Effect</div>
+            <div style="color: #38bdf8;">backdrop-filter: blur(15px); <span style="color: #64748b;">// Frosted glass</span></div>
+        </div>
+
+        <div class="visual-panel">
+            <div class="card-wrapper" id="wrapper">
+                <div class="glass-card">
+                    <div class="glare" id="glare"></div>
+
+                    <div class="header">
+                        <div class="chip"></div>
+                        <div class="id-type">Access Level<br>MAGE-01</div>
+                    </div>
+
+                    <div class="avatar-section">
+                        <div class="avatar"></div>
+                        <div class="name-block">
+                            <h2>Tuan Healer</h2>
+                            <p>FULLSTACK ENGINEER</p>
+                        </div>
+                    </div>
+
+                    <div class="details">
+                        <div>DOB <span>199X.XX.XX</span></div>
+                        <div>ISSUE <span>2026.05.31</span></div>
+                        <div>GUILD <span>Dev SaaS</span></div>
+                        <div>STATUS <span style="color: var(--neon-cyan);">ACTIVE</span></div>
+                    </div>
+
+                    <div class="barcode"></div>
+                    <div class="barcode-text">UID-849201-XYZ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

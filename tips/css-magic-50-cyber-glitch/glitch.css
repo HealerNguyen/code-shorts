@@ -1,0 +1,20 @@
+/* attr() duplicates text — no extra HTML */
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute; top: 0; left: 0;
+  background: var(--bg);
+}
+
+/* Red layer: shifted left */
+.glitch-text::before {
+  left: 3px;
+  text-shadow: -2px 0 var(--glitch-red);
+  clip-path: inset(0 0 0 0);
+  animation: glitch-anim-1 2s infinite;
+}
+
+/* Hover reveal: width 0% → 100% */
+.glitch-wrapper:hover .reveal-overlay {
+  width: 100%;
+}

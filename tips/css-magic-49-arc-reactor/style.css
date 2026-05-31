@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+
+:root {
+    --bg: #010409;
+    --code-bg: #0f172a;
+    --neon-blue: #00f3ff;
+    --neon-blue-glow: rgba(0, 243, 255, 0.6);
+    --danger-red: #ff003c;
+    --danger-red-glow: rgba(255, 0, 60, 0.8);
+
+    /* CSS variables to control color & speed — easily overridden on hover */
+    --reactor-color: var(--neon-blue);
+    --reactor-glow: var(--neon-blue-glow);
+    --spin-speed-1: 15s;
+    --spin-speed-2: 20s;
+}
+
+body {
+    margin: 0; background-color: var(--bg); color: white;
+    font-family: 'Fira Code', monospace; padding: 40px;
+    display: flex; flex-direction: column; align-items: center;
+    /* Brushed metal armor surface */
+    background-image:
+        radial-gradient(circle at 50% 50%, #111 0%, #000 100%),
+        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px);
+    overflow: hidden;
+}
+
+.main-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; width: 100%; max-width: 1100px; margin-top: 30px;
+}
+
+.code-panel {
+    background: var(--code-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 25px; font-size: 13px; line-height: 1.6;
+}
+
+.visual-panel {
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(circle at 50% 50%, #111 0%, #000 100%),
+        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px);
+    border-radius: 15px; height: 420px;
+    display: flex; justify-content: center; align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; position: relative;
+}
+
+/* Reactor housing */
+.reactor-housing {
+    position: relative; width: 300px; height: 300px;
+    border-radius: 50%; background: #0a0a0a;
+    box-shadow:
+        0 0 0 12px #111,
+        0 0 0 14px #222,
+        0 30px 50px rgba(0, 0, 0, 0.9),
+        inset 0 0 40px rgba(0, 0, 0, 1);
+    display: flex; justify-content: center; align-items: center;
+    transition: all 0.5s ease;
+}
+
+/* Inner glow ring */
+.reactor-housing::before {
+    content: ''; position: absolute; inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 50px var(--reactor-glow);
+    transition: box-shadow 0.5s ease;
+}
+
+/* Outer tick ring (repeating-conic-gradient) */
+.ring-ticks {
+    position: absolute; width: 260px; height: 260px;
+    border-radius: 50%;
+    /* Repeating conic gradient creates tick marks */
+    background: repeating-conic-gradient(from 0deg,
+            var(--reactor-color) 0deg,
+            var(--reactor-color) 2deg,
+            transparent 2deg,
+            transparent 10deg);
+    /* Hollow center to make it a ring */
+    mask-image: radial-gradient(transparent 65%, black 66%);
+    -webkit-mask-image: radial-gradient(transparent 65%, black 66%);
+    animation: spin var(--spin-speed-1) linear infinite;
+    transition: all 0.5s ease;
+    filter: drop-shadow(0 0 5px var(--reactor-color));
+}
+
+/* Inner gear ring (counter-rotating) */
+.ring-gears {
+    position: absolute; width: 190px; height: 190px;
+    border-radius: 50%;
+    /* Wider gear teeth */
+    background: repeating-conic-gradient(from 0deg,
+            var(--reactor-color) 0deg,
+            var(--reactor-color) 15deg,
+            transparent 15deg,
+            transparent 30deg);
+    mask-image: radial-gradient(transparent 70%, black 71%);
+    -webkit-mask-image: radial-gradient(transparent 70%, black 71%);
+    /* Spins opposite direction */
+    animation: spin-reverse var(--spin-speed-2) linear infinite;
+    transition: all 0.5s ease;
+    filter: drop-shadow(0 0 10px var(--reactor-color));
+}
+
+/* Energy core */
+.core {
+    position: absolute; width: 85px; height: 85px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, var(--reactor-color) 40%, #000 90%);
+    box-shadow:
+        0 0 30px var(--reactor-glow),
+        0 0 60px var(--reactor-glow),
+        inset 0 0 20px #fff;
+    transition: all 0.5s ease;
+    cursor: pointer; z-index: 10;
+}
+
+/* Copper coils */
+.coil {
+    position: absolute; width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 4px dashed #333;
+    animation: spin 30s linear infinite;
+}
+
+/* MELTDOWN on hover — just override 4 CSS variables! */
+.reactor-housing:hover {
+    --reactor-color: var(--danger-red);
+    --reactor-glow: var(--danger-red-glow);
+    --spin-speed-1: 1s;    /* 15x faster */
+    --spin-speed-2: 1.5s;
+}
+
+/* Core shakes when overloaded */
+.reactor-housing:hover .core {
+    transform: scale(1.1);
+    animation: core-pulse 0.2s infinite alternate;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes core-pulse {
+    0%   { box-shadow: 0 0 40px var(--reactor-glow), 0 0 80px var(--reactor-glow), inset 0 0 20px #fff; }
+    100% { box-shadow: 0 0 60px var(--reactor-glow), 0 0 120px var(--reactor-glow), inset 0 0 30px #fff; }
+}

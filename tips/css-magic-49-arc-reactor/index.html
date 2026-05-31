@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arc Reactor Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2 style="font-weight: 200; letter-spacing: 5px;">ARC REACTOR</h2>
+
+    <div class="main-layout">
+        <div class="code-panel">
+            <div style="color: #64748b;">// Tick ring: repeating-conic-gradient</div>
+            <div style="color: #00f3ff;">.ring-ticks {</div>
+            <div>&nbsp;&nbsp;background: repeating-conic-gradient(</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;var(--reactor-color) 0deg 2deg,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;transparent 2deg 10deg); <span style="color: #64748b;">// Tick marks!</span></div>
+            <div>&nbsp;&nbsp;mask-image: radial-gradient(</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;transparent 65%, black 66%); <span style="color: #64748b;">// Hollow ring</span></div>
+            <div style="color: #00f3ff;">}</div>
+            <br>
+            <div style="color: #64748b;">// Meltdown: Just override 4 CSS variables!</div>
+            <div style="color: #ff003c;">.reactor-housing:hover {</div>
+            <div>&nbsp;&nbsp;--reactor-color: var(--danger-red);</div>
+            <div>&nbsp;&nbsp;--reactor-glow: var(--danger-red-glow);</div>
+            <div>&nbsp;&nbsp;--spin-speed-1: <span style="color: #fbbf24;">1s</span>; <span style="color: #64748b;">// 15x faster!</span></div>
+            <div>&nbsp;&nbsp;--spin-speed-2: <span style="color: #fbbf24;">1.5s</span>;</div>
+            <div style="color: #ff003c;">}</div>
+        </div>
+
+        <div class="visual-panel">
+            <div class="reactor-housing">
+                <div class="coil"></div>
+                <div class="ring-ticks"></div>
+                <div class="ring-gears"></div>
+                <div class="core"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

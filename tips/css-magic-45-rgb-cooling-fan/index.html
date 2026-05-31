@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB Cooling Fan Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2 style="font-weight: 200; letter-spacing: 5px;">RGB COOLING FAN</h2>
+
+    <div class="main-layout">
+        <div class="code-panel">
+            <div style="color: #64748b;">// RGB Ring: Conic Gradient hollowed by Mask</div>
+            <div style="color: #f87171;">.rgb-ring {</div>
+            <div>&nbsp;&nbsp;background: conic-gradient(</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;#ff0000, #ff7f00, #ffff00, #00ff00,</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;#00ffff, #0000ff, #8b00ff, #ff0000);</div>
+            <div>&nbsp;&nbsp;mask-image: radial-gradient(</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;transparent 62%, black 63%); <span style="color: #64748b;">// Hollow center</span></div>
+            <div style="color: #f87171;">}</div>
+            <br>
+            <div style="color: #64748b;">// Each blade positioned by CSS variable</div>
+            <div style="color: #a855f7;">.blade {</div>
+            <div>&nbsp;&nbsp;transform: rotate(calc(var(--i) * 51.42deg));</div>
+            <div>&nbsp;&nbsp;border-radius: 100% 0% 100% 0%; <span style="color: #64748b;">// Leaf shape</span></div>
+            <div style="color: #a855f7;">}</div>
+            <br>
+            <div style="color: #64748b;">// Hover: 20x speed + motion blur</div>
+            <div style="color: #38bdf8;">.fan-frame:hover .rotor {</div>
+            <div>&nbsp;&nbsp;animation: spin <span style="color: #fbbf24;">0.15s</span> linear infinite;</div>
+            <div>&nbsp;&nbsp;filter: blur(1.5px); <span style="color: #64748b;">// Simulates high RPM</span></div>
+            <div style="color: #38bdf8;">}</div>
+        </div>
+
+        <div class="visual-panel">
+            <div class="fan-frame" id="fan-frame">
+                <div class="screw s-tl"></div>
+                <div class="screw s-tr"></div>
+                <div class="screw s-bl"></div>
+                <div class="screw s-br"></div>
+
+                <div class="vent-hole"></div>
+                <div class="rgb-ring"></div>
+
+                <div class="rotor">
+                    <div class="blade" style="--i:0"></div>
+                    <div class="blade" style="--i:1"></div>
+                    <div class="blade" style="--i:2"></div>
+                    <div class="blade" style="--i:3"></div>
+                    <div class="blade" style="--i:4"></div>
+                    <div class="blade" style="--i:5"></div>
+                    <div class="blade" style="--i:6"></div>
+
+                    <div class="hub">HL</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

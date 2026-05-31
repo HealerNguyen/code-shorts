@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+
+:root {
+    --bg: #010409;
+    --code-bg: #0f172a;
+    --radar-bg: #020603;
+    --radar-green: #10b981;
+    --radar-dark: #064e3b;
+    --radar-glow: rgba(16, 185, 129, 0.5);
+}
+
+body {
+    margin: 0; background: var(--bg); color: white;
+    font-family: 'Fira Code', monospace; padding: 40px;
+    display: flex; flex-direction: column; align-items: center;
+}
+
+.main-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; width: 100%; max-width: 1100px; margin-top: 30px;
+}
+
+.code-panel {
+    background: var(--code-bg); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px; padding: 25px; font-size: 13px; line-height: 1.6;
+}
+
+.visual-panel {
+    background-color: var(--radar-bg);
+    /* Terminal grid background */
+    background-image:
+        linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    border-radius: 15px; height: 400px;
+    display: flex; justify-content: center; align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; position: relative;
+}
+
+/* Radar Bezel */
+.radar-bezel {
+    position: relative; width: 320px; height: 320px;
+    border-radius: 50%; background: #000;
+    border: 4px solid #111;
+    /* 3D convex screen */
+    box-shadow:
+        0 0 0 10px #0a0a0a,
+        0 30px 50px rgba(0, 0, 0, 0.9),
+        inset 0 0 30px var(--radar-dark);
+    cursor: crosshair; overflow: hidden;
+}
+
+/* Coordinate grid + concentric rings */
+.radar-grid {
+    position: absolute; inset: 0; border-radius: 50%;
+    background-image:
+        /* Vertical & horizontal axes */
+        linear-gradient(90deg, transparent 49.5%, var(--radar-green) 49.5%, var(--radar-green) 50.5%, transparent 50.5%),
+        linear-gradient(0deg, transparent 49.5%, var(--radar-green) 49.5%, var(--radar-green) 50.5%, transparent 50.5%),
+        /* Concentric rings */
+        repeating-radial-gradient(transparent 0, transparent 40px, rgba(16, 185, 129, 0.3) 41px, rgba(16, 185, 129, 0.3) 42px);
+    opacity: 0.5;
+}
+
+/* Sweeper beam (conic gradient) */
+.sweeper {
+    position: absolute; inset: 0; border-radius: 50%;
+    /* Conic gradient creates the cone-shaped sweep */
+    background: conic-gradient(from 0deg,
+            transparent 75%,
+            rgba(16, 185, 129, 0.1) 90%,
+            var(--radar-green) 100%);
+    animation: radar-spin 4s linear infinite;
+    transform-origin: center; z-index: 2;
+}
+
+/* Sharp edge of the sweep line */
+.sweeper::after {
+    content: ''; position: absolute;
+    top: 0; left: 50%;
+    width: 2px; height: 50%;
+    background: #fff;
+    box-shadow: 0 0 10px 2px var(--radar-green);
+}
+
+@keyframes radar-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Blips (targets) */
+.blip {
+    position: absolute; width: 8px; height: 8px;
+    background: #fff; border-radius: 50%;
+    box-shadow: 0 0 10px 3px var(--radar-green);
+    opacity: 0; z-index: 3;
+}
+
+/* Blip animations synced with sweep speed */
+.blip-1 { top: 25%; left: 60%; animation: blip-fade 4s infinite; animation-delay: 0.5s; }
+.blip-2 { top: 65%; left: 30%; animation: blip-fade 4s infinite; animation-delay: 2.2s; }
+.blip-3 { top: 75%; left: 70%; animation: blip-fade 4s infinite; animation-delay: 1.5s; }
+
+@keyframes blip-fade {
+    0%  { opacity: 1; transform: scale(1.5); }
+    10% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* Shockwave on click */
+.shockwave {
+    position: absolute; top: 50%; left: 50%;
+    width: 20px; height: 20px;
+    border: 3px solid var(--radar-green);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0; pointer-events: none; z-index: 10;
+}
+
+.shockwave-active {
+    animation: pulse-wave 0.8s ease-out forwards;
+}
+
+@keyframes pulse-wave {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1; box-shadow: 0 0 20px var(--radar-green);
+        border-width: 5px;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(20);
+        opacity: 0; border-width: 1px;
+    }
+}
+
+/* CRT screen overlay (scanlines + glare) */
+.radar-bezel::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    background:
+        /* Convex glass glare */
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+        /* CRT scanlines */
+        repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(0, 0, 0, 0.2) 3px);
+    z-index: 5; pointer-events: none;
+}
